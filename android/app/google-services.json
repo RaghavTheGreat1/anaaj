@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210949688729",
+    "project_id": "anaaj-e5948",
+    "storage_bucket": "anaaj-e5948.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210949688729:android:37fe04a03cd31052efd708",
+        "android_client_info": {
+          "package_name": "com.example.anaaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210949688729-pbuv82pgunm805mvt3livcvn8hlq1m8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXFgNkfoKyru6jivSZVW6LhJ8sBj9O0Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210949688729-pbuv82pgunm805mvt3livcvn8hlq1m8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
