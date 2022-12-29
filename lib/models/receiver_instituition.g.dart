@@ -11,7 +11,9 @@ _$_ReceiverInstituition _$$_ReceiverInstituitionFromJson(
     _$_ReceiverInstituition(
       id: json['id'] as String,
       name: json['name'] as String,
+      phoneNumber: json['phoneNumber'] as int,
       emailAddress: json['emailAddress'] as String,
+      address: Address.fromJson(json['address'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ReceiverInstituitionToJson(
@@ -19,5 +21,7 @@ Map<String, dynamic> _$$_ReceiverInstituitionToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'phoneNumber': instance.phoneNumber,
       'emailAddress': instance.emailAddress,
+      'address': instance.address.toJson(),
     };

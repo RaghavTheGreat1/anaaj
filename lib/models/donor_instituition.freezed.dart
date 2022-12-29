@@ -22,7 +22,9 @@ DonorInstituition _$DonorInstituitionFromJson(Map<String, dynamic> json) {
 mixin _$DonorInstituition {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get phoneNumber => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,14 @@ abstract class $DonorInstituitionCopyWith<$Res> {
           DonorInstituition value, $Res Function(DonorInstituition) then) =
       _$DonorInstituitionCopyWithImpl<$Res, DonorInstituition>;
   @useResult
-  $Res call({String id, String name, String emailAddress});
+  $Res call(
+      {String id,
+      String name,
+      int phoneNumber,
+      String emailAddress,
+      Address address});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -54,7 +63,9 @@ class _$DonorInstituitionCopyWithImpl<$Res, $Val extends DonorInstituition>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? phoneNumber = null,
     Object? emailAddress = null,
+    Object? address = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -65,11 +76,27 @@ class _$DonorInstituitionCopyWithImpl<$Res, $Val extends DonorInstituition>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       emailAddress: null == emailAddress
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -81,7 +108,15 @@ abstract class _$$_DonorInstituitionCopyWith<$Res>
       __$$_DonorInstituitionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String emailAddress});
+  $Res call(
+      {String id,
+      String name,
+      int phoneNumber,
+      String emailAddress,
+      Address address});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -97,7 +132,9 @@ class __$$_DonorInstituitionCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? phoneNumber = null,
     Object? emailAddress = null,
+    Object? address = null,
   }) {
     return _then(_$_DonorInstituition(
       id: null == id
@@ -108,10 +145,18 @@ class __$$_DonorInstituitionCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       emailAddress: null == emailAddress
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
     ));
   }
 }
@@ -120,7 +165,11 @@ class __$$_DonorInstituitionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DonorInstituition implements _DonorInstituition {
   const _$_DonorInstituition(
-      {required this.id, required this.name, required this.emailAddress});
+      {required this.id,
+      required this.name,
+      required this.phoneNumber,
+      required this.emailAddress,
+      required this.address});
 
   factory _$_DonorInstituition.fromJson(Map<String, dynamic> json) =>
       _$$_DonorInstituitionFromJson(json);
@@ -130,11 +179,15 @@ class _$_DonorInstituition implements _DonorInstituition {
   @override
   final String name;
   @override
+  final int phoneNumber;
+  @override
   final String emailAddress;
+  @override
+  final Address address;
 
   @override
   String toString() {
-    return 'DonorInstituition(id: $id, name: $name, emailAddress: $emailAddress)';
+    return 'DonorInstituition(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
   }
 
   @override
@@ -144,13 +197,17 @@ class _$_DonorInstituition implements _DonorInstituition {
             other is _$_DonorInstituition &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
             (identical(other.emailAddress, emailAddress) ||
-                other.emailAddress == emailAddress));
+                other.emailAddress == emailAddress) &&
+            (identical(other.address, address) || other.address == address));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, emailAddress);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, phoneNumber, emailAddress, address);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +228,9 @@ abstract class _DonorInstituition implements DonorInstituition {
   const factory _DonorInstituition(
       {required final String id,
       required final String name,
-      required final String emailAddress}) = _$_DonorInstituition;
+      required final int phoneNumber,
+      required final String emailAddress,
+      required final Address address}) = _$_DonorInstituition;
 
   factory _DonorInstituition.fromJson(Map<String, dynamic> json) =
       _$_DonorInstituition.fromJson;
@@ -181,7 +240,11 @@ abstract class _DonorInstituition implements DonorInstituition {
   @override
   String get name;
   @override
+  int get phoneNumber;
+  @override
   String get emailAddress;
+  @override
+  Address get address;
   @override
   @JsonKey(ignore: true)
   _$$_DonorInstituitionCopyWith<_$_DonorInstituition> get copyWith =>

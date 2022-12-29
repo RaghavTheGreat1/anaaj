@@ -22,7 +22,9 @@ Volunteer _$VolunteerFromJson(Map<String, dynamic> json) {
 mixin _$Volunteer {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get phoneNumber => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,14 @@ abstract class $VolunteerCopyWith<$Res> {
   factory $VolunteerCopyWith(Volunteer value, $Res Function(Volunteer) then) =
       _$VolunteerCopyWithImpl<$Res, Volunteer>;
   @useResult
-  $Res call({String id, String name, String emailAddress});
+  $Res call(
+      {String id,
+      String name,
+      int phoneNumber,
+      String emailAddress,
+      Address address});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -53,7 +62,9 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? phoneNumber = null,
     Object? emailAddress = null,
+    Object? address = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,11 +75,27 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       emailAddress: null == emailAddress
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -79,7 +106,15 @@ abstract class _$$_VolunteerCopyWith<$Res> implements $VolunteerCopyWith<$Res> {
       __$$_VolunteerCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String emailAddress});
+  $Res call(
+      {String id,
+      String name,
+      int phoneNumber,
+      String emailAddress,
+      Address address});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -95,7 +130,9 @@ class __$$_VolunteerCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? phoneNumber = null,
     Object? emailAddress = null,
+    Object? address = null,
   }) {
     return _then(_$_Volunteer(
       id: null == id
@@ -106,10 +143,18 @@ class __$$_VolunteerCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       emailAddress: null == emailAddress
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
     ));
   }
 }
@@ -118,7 +163,11 @@ class __$$_VolunteerCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Volunteer implements _Volunteer {
   const _$_Volunteer(
-      {required this.id, required this.name, required this.emailAddress});
+      {required this.id,
+      required this.name,
+      required this.phoneNumber,
+      required this.emailAddress,
+      required this.address});
 
   factory _$_Volunteer.fromJson(Map<String, dynamic> json) =>
       _$$_VolunteerFromJson(json);
@@ -128,11 +177,15 @@ class _$_Volunteer implements _Volunteer {
   @override
   final String name;
   @override
+  final int phoneNumber;
+  @override
   final String emailAddress;
+  @override
+  final Address address;
 
   @override
   String toString() {
-    return 'Volunteer(id: $id, name: $name, emailAddress: $emailAddress)';
+    return 'Volunteer(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
   }
 
   @override
@@ -142,13 +195,17 @@ class _$_Volunteer implements _Volunteer {
             other is _$_Volunteer &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
             (identical(other.emailAddress, emailAddress) ||
-                other.emailAddress == emailAddress));
+                other.emailAddress == emailAddress) &&
+            (identical(other.address, address) || other.address == address));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, emailAddress);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, phoneNumber, emailAddress, address);
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +225,9 @@ abstract class _Volunteer implements Volunteer {
   const factory _Volunteer(
       {required final String id,
       required final String name,
-      required final String emailAddress}) = _$_Volunteer;
+      required final int phoneNumber,
+      required final String emailAddress,
+      required final Address address}) = _$_Volunteer;
 
   factory _Volunteer.fromJson(Map<String, dynamic> json) =
       _$_Volunteer.fromJson;
@@ -178,7 +237,11 @@ abstract class _Volunteer implements Volunteer {
   @override
   String get name;
   @override
+  int get phoneNumber;
+  @override
   String get emailAddress;
+  @override
+  Address get address;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteerCopyWith<_$_Volunteer> get copyWith =>
