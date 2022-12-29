@@ -1,5 +1,4 @@
 import 'package:anaaj/models/donor_instituition.dart';
-import 'package:anaaj/models/food_item.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'marketplace_entity.freezed.dart';
