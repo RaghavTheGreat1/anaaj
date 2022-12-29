@@ -8,10 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
+import '../screens/authentication_screen/authentication_screen.dart';
+import '../screens/onboarding_screen/onboarding_screen.dart';
+
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
 
   return GoRouter(
+    initialLocation: '/',
     debugLogDiagnostics: true,
     refreshListenable: router,
     redirect: router._redirectLogic,
@@ -34,8 +38,9 @@ class RouterNotifier extends ChangeNotifier {
 
     // // From here we can use the state and implement our custom logic
 
-    final areWeLoggingIn =
-        state.location == '/' || state.location.contains('/verify');
+    final areWeLoggingIn = state.location == '/' ||
+        state.location.contains('/auth') ||
+        state.location.contains('/verify');
 
     if (user == null) {
       // We're not logged in
@@ -66,7 +71,34 @@ class RouterNotifier extends ChangeNotifier {
   List<RouteBase> get _routes => [
         GoRoute(
           path: '/',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: OnboardingScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutePathsHelper.auth,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: AuthenticationScreen(),
+            );
+          },
           routes: [
+            GoRoute(
+              path: RoutePathsHelper.register,
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: state.pageKey,
+                  transitionsBuilder: rightToLeftFadeTransition,
+                  child: Scaffold(),
+                );
+              },
+            ),
             GoRoute(
               path: 'verify/:phonenumber',
               pageBuilder: (context, state) {
@@ -79,18 +111,18 @@ class RouterNotifier extends ChangeNotifier {
             ),
           ],
         ),
-        GoRoute(
-          path: RoutePathsHelper.donor,
-          routes: [],
-        ),
-        GoRoute(
-          path: RoutePathsHelper.receiver,
-          routes: [],
-        ),
-        GoRoute(
-          path: RoutePathsHelper.volunteer,
-          routes: [],
-        ),
+        // GoRoute(
+        //   path: RoutePathsHelper.donor,
+        //   routes: [],
+        // ),
+        // GoRoute(
+        //   path: RoutePathsHelper.receiver,
+        //   routes: [],
+        // ),
+        // GoRoute(
+        //   path: RoutePathsHelper.volunteer,
+        //   routes: [],
+        // ),
       ];
 }
 
