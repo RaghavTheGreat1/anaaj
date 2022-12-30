@@ -29,6 +29,13 @@
             {
               "client_id": "210949688729-pbuv82pgunm805mvt3livcvn8hlq1m8a.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "210949688729-t2n88m484ebrjnk2lp1b2eq1r5ffd8ca.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.anaaj"
+              }
             }
           ]
         }

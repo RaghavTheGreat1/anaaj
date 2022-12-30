@@ -1,18 +1,31 @@
+import 'package:anaaj/services/app_initializer_service.dart';
+import 'package:anaaj/themes/light_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// changes to the app build.gradle file {multiDexEnabled true} {  minSdkVersion 19}
-void main() {
-  runApp(const AnaajApp());
+import 'router/router.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await AppInitializerService.instance.initialize();
+  runApp(
+    ProviderScope(
+      child: const AnaajApp(),
+    ),
+  );
 }
 
-class AnaajApp extends StatelessWidget {
+class AnaajApp extends HookConsumerWidget {
   const AnaajApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(),
-      home: const PreLoginPage(),
+      home: Scaffold(
+        appBar: AppBar(elevation: 0),
+      ),
     );
   }
 }
