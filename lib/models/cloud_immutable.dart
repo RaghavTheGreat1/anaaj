@@ -19,7 +19,7 @@ class CloudFood {
   });
   CloudFood.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : documentId = snapshot.id,
-        InstitutionId = snapshot.data()[InstitutionIdFieldName],
+        InstitutionId = snapshot.data()[InstitutionIdRem],
         Address = snapshot.data()[AddressFieldName] as String,
         Quantity = snapshot.data()[QuantityFieldName] as String,
         Time = snapshot.data()[TimeFieldName] as String;
