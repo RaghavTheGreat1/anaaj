@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../models/app_user.dart';
+
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
 
@@ -59,18 +61,34 @@ class AuthenticationScreen extends StatelessWidget {
                         switch (selectedRole) {
                           case Role.donor:
                             user as DonorInstituition;
-                            context.go(RoutePathsHelper.verifyPhoneNumber(
-                                user.phoneNumber));
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                user.phoneNumber,
+                              ),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
                             break;
                           case Role.volunteer:
                             user as Volunteer;
-                            context.go(RoutePathsHelper.verifyPhoneNumber(
-                                user.phoneNumber));
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                  user.phoneNumber),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
                             break;
                           case Role.receiver:
                             user as ReceiverInstituition;
-                            context.go(RoutePathsHelper.verifyPhoneNumber(
-                                user.phoneNumber));
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                  user.phoneNumber),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
                             break;
                           default:
                         }
