@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/role.dart';
 import 'package:anaaj/models/volunteer.dart';
+import 'package:anaaj/providers/fcm_provider.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +33,8 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
   int code = 0000;
   String? verification_id;
 
+  Completer<UserCredential?> c = new Completer();
+
   void setVerificationId(String code) {
     setState(() {
       verification_id = code;
@@ -38,6 +44,7 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     bool code_sent = ref.watch(codeSentProvider);
+    String? fcmToken = ref.watch(fcmTokenProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,14 +85,15 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                   },
                   keyboardType: TextInputType.phone,
                   maxLength: 6,
-                  textInputAction: TextInputAction.done,
+                  // textInputAction: TextInputAction.done,
                 )),
                 ElevatedButton(
                   onPressed: () async {
                     print("pressed");
                     print(verification_id);
                     if (verification_id != null)
-                      await auth.verifyCode(verification_id!, code.toString());
+                      await auth.verifyCode(
+                          verification_id!, code.toString(), fcmToken, c);
                     else
                       print("verification_id is null");
                   },
@@ -97,21 +105,14 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      print("onSubmit");
-
-                      // await auth.createVolunteer(
-                      //   phoneNumber,
-                      //   ref,
-                      //   verification_id,
-                      //   setVerificationId,
-                      // );
+                      await auth.createVolunteer(phoneNumber, ref,
+                          verification_id, setVerificationId, fcmToken, c);
+                      print('createVolunteer finished');
 
                       final user = await auth.fetchUserByPhoneNumber(
                         phoneNumber,
                         selectedRole,
                       );
-                      print("user");
-                      print(user);
                       if (user != null) {
                         print("user not null");
                         switch (selectedRole) {
@@ -127,7 +128,6 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                             );
                             break;
                           case Role.volunteer:
-                            print("going to otp verification screen");
                             user as Volunteer;
                             context.go(
                               RoutePathsHelper.verifyPhoneNumber(
@@ -153,6 +153,8 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                         print("user null");
                         context.go(RoutePathsHelper.register);
                       }
+                      print("user");
+                      print(user);
                     },
                     child: Text("submit"),
                   ),

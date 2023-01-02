@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,7 +14,7 @@ class AppInitializerService {
 
   static AppInitializerService instance = AppInitializerService._private();
 
-  Future<void> initialize() async {
+  Future<String?> initialize() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -21,7 +22,9 @@ class AppInitializerService {
     FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);
     FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
 
+    final fcmToken = await FirebaseMessaging.instance.getToken();
     await _configureSystem();
+    return fcmToken;
   }
 
   Future<void> _configureSystem() async {

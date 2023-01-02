@@ -12,8 +12,10 @@ class Volunteer with _$Volunteer {
     required int phoneNumber,
     required String emailAddress,
     required Address address,
+    required String? fcmToken,
   }) = _Volunteer;
 
   factory Volunteer.fromJson(Map<String, dynamic> json) =>
       _$VolunteerFromJson(json);
 }
+

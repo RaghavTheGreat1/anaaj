@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anaaj/models/address.dart';
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
@@ -29,13 +31,15 @@ class AuthenticationServices {
     return FirebaseFirestore.instance.collection(receiverInstituitionsPath);
   }
 
-  Future<void> _createUserWithCredentials(UserCredential user_creds) async {
+  Future<void> _createUserWithCredentials(
+      UserCredential user_creds, fcmToken, Completer<void> c) async {
     String? phone_number = user_creds.user!.phoneNumber;
     Volunteer middlemen = Volunteer(
         id: user_creds.user!.uid,
         name: "test",
         phoneNumber: int.parse(phone_number ?? "0000"),
         emailAddress: "test@test.com",
+        fcmToken: fcmToken,
         address: Address(
             id: "",
             streetAddress: "bowee lane",
@@ -47,6 +51,7 @@ class AuthenticationServices {
         .collection(volunteersPath)
         .doc(middlemen.phoneNumber.toString())
         .set(middlemen.toJson());
+    c.complete();
   }
 
   /// Returns [DonorInstituition] or [Volunteer] or [ReceiverInstituition]
@@ -132,28 +137,36 @@ class AuthenticationServices {
     return credentials;
   }
 
-  Future<void> verifyCode(String verification_id, String code) async {
+  Future<void> verifyCode(String verification_id, String code, String? fcmToken,
+      Completer<UserCredential?> c) async {
     PhoneAuthCredential _credential = PhoneAuthProvider.credential(
         verificationId: verification_id, smsCode: code);
     final user_creds = await auth.signInWithCredential(_credential);
-    await _createUserWithCredentials(user_creds);
+    await _createUserWithCredentials(user_creds, fcmToken, c);
   }
 
   /// Creates a user in FirebaseAuth & saves the data to respective collection
-  Future<UserCredential?> createVolunteer(int phoneNumber, WidgetRef ref,
-      String? verification_id, void setCode(String code)) async {
-    UserCredential? _credentials;
+  Future<UserCredential?> createVolunteer(
+      int phoneNumber,
+      WidgetRef ref,
+      String? verification_id,
+      void setCode(String code),
+      String? fcmToken,
+      Completer<UserCredential?> c) async {
+    // UserCredential? _credentials;
     print("verifyPhoneNumber");
     await auth.verifyPhoneNumber(
         phoneNumber: "+91" + phoneNumber.toString(),
         verificationCompleted: (PhoneAuthCredential credentials) async {
           final user_creds = await auth.signInWithCredential(credentials);
-          await _createUserWithCredentials(user_creds);
+          await _createUserWithCredentials(user_creds, fcmToken, c);
+          c.complete();
         },
         verificationFailed: (err) {
           print("verificationFailed");
           print(err);
           print(phoneNumber);
+          c.complete();
         },
         codeSent: (String code, int? forceResendingToken) {
           ref.read(codeSentProvider.notifier).toggle();
@@ -162,6 +175,6 @@ class AuthenticationServices {
         },
         codeAutoRetrievalTimeout: (timeout) {});
 
-    return _credentials;
+    return c.future;
   }
 }
