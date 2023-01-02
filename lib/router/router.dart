@@ -4,18 +4,21 @@ import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
+import 'package:anaaj/screens/HomePage/EnlargedCard.dart';
+import 'package:anaaj/screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../screens/authentication_screen/authentication_screen.dart';
+import '../screens/HomePage/marketplace.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/EnlargedCard',
     debugLogDiagnostics: true,
     refreshListenable: router,
     redirect: router._redirectLogic,
@@ -38,31 +41,31 @@ class RouterNotifier extends ChangeNotifier {
 
     // // From here we can use the state and implement our custom logic
 
-    final areWeLoggingIn = state.location == '/' ||
-        state.location.contains('/auth') ||
-        state.location.contains('/verify');
+    // final areWeLoggingIn = state.location == '/' ||
+    //     state.location.contains('/auth') ||
+    //     state.location.contains('/verify');
 
-    if (user == null) {
-      // We're not logged in
-      // So, IF we aren't in the login page, go there.
-      return areWeLoggingIn ? null : '/';
-    }
-    // We're logged in
+    // if (user == null) {
+    //   // We're not logged in
+    //   // So, IF we aren't in the login page, go there.
+    //   return areWeLoggingIn ? null : '/';
+    // }
+    // // We're logged in
 
-    // At this point, IF we're in the login page, go to the home page
+    // // At this point, IF we're in the login page, go to the home page
 
-    if (areWeLoggingIn) {
-      Object appUser = user.appUser;
-      if (appUser is DonorInstituition) {
-        return RoutePathsHelper.donor;
-      } else if (appUser is ReceiverInstituition) {
-        return RoutePathsHelper.receiver;
-      } else if (appUser is Volunteer) {
-        return RoutePathsHelper.volunteer;
-      } else {
-        return null;
-      }
-    }
+    // if (areWeLoggingIn) {
+    //   Object appUser = user.appUser;
+    //   if (appUser is DonorInstituition) {
+    //     return RoutePathsHelper.donor;
+    //   } else if (appUser is ReceiverInstituition) {
+    //     return RoutePathsHelper.receiver;
+    //   } else if (appUser is Volunteer) {
+    //     return RoutePathsHelper.volunteer;
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
     // There's no need for a redirect at this point.
     return null;
@@ -76,6 +79,26 @@ class RouterNotifier extends ChangeNotifier {
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
               child: OnboardingScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/marketplace',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: MarketPlace(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/EnlargedCard',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: EnlargedCard(),
             );
           },
         ),
@@ -105,7 +128,17 @@ class RouterNotifier extends ChangeNotifier {
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
-                  child: Scaffold(),
+                  child: OtpVerificationScreen(
+                    phoneNumber: state.params['phonenumber'].toString(),
+                    onVerificationSuccessful: () async {
+                      if (state.extra != AppUser) {
+                        throw Exception(
+                            "App user needs to be passed through GoRoute state");
+                      }
+                      AppUser appUser = state.extra as AppUser;
+                      ref.read(appUserProvider.notifier).state = appUser;
+                    },
+                  ),
                 );
               },
             ),

@@ -4,6 +4,8 @@ class RoutePathsHelper {
   static String donor = '/donor';
   static String receiver = '/receiver';
   static String volunteer = '/volunteer';
+  static String marketplace = '/marketplace';
+  static String EnlargedCard = '/EnlargedCard';
 
   static String register = 'register';
 
