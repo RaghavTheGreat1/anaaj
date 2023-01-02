@@ -5,7 +5,7 @@ class RoutePathsHelper {
   static String receiver = '/receiver';
   static String volunteer = '/volunteer';
 
-  static String register = 'register';
+  static String register(int phoneNumber) => 'register/$phoneNumber';
 
   static String verifyPhoneNumber(int phoneNumber) => '/verify/$phoneNumber';
 }

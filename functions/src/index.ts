@@ -48,7 +48,7 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
 
 			// Send back a message that we've successfully written the message
 		}
-		res.json({ result: all_users });
+		res.send(JSON.stringify(all_users, null, 2));
 		// res.sendStatus(200);
 	} catch (err) { console.error(err); res.sendStatus(500) }
 

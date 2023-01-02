@@ -14,6 +14,7 @@ void main() async {
 
   runApp(
     ProviderScope(
+      overrides: AppInitializerService.instance.riverpodOverrides,
       child: AnaajApp(fcmToken: fcmToken),
     ),
   );
