@@ -15,17 +15,20 @@ class _EnlargedCardState extends State<EnlargedCard> {
     return Center(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('MarketPlace'),
+          title: Text('Checkout'),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[200],
         body: SingleChildScrollView(
             child: Column(
           children: [
+            SizedBox(
+              height: 50,
+            ),
             Container(
                 height: 300,
                 width: 300,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(160, 137, 97, 0.6),
+                  color: Colors.white,
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   ),
@@ -52,7 +55,7 @@ class _EnlargedCardState extends State<EnlargedCard> {
                   height: 100,
                   width: 370,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(160, 137, 97, 0.6),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
@@ -111,24 +114,40 @@ class _EnlargedCardState extends State<EnlargedCard> {
                         right: 0,
                         child: Container(
                           height: 60,
+                          width: 100,
                           child: Row(
                             children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle button press
-                                  },
-                                  child: Text('Button 1'),
-                                ),
-                              ),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle button press
-                                  },
-                                  child: Text('Button 2'),
-                                ),
-                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 12,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.red,
+                                      ),
+                                      onPressed: () {
+                                        // Handle button press
+                                      },
+                                      child: Text('Volunteers',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                    ),
+                                    onPressed: () {
+                                      // Handle button press
+                                    },
+                                    child: Text('Volunteers',
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
