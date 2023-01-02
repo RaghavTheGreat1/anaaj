@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "210949688729",
+    "firebase_url": "https://anaaj-e5948-default-rtdb.firebaseio.com",
+    "project_id": "anaaj-e5948",
+    "storage_bucket": "anaaj-e5948.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210949688729:android:37fe04a03cd31052efd708",
+        "android_client_info": {
+          "package_name": "com.example.anaaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210949688729-g0d8v8eqh4pci49ud1j89httv5e398jm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anaaj",
+            "certificate_hash": "73f580680c0b9682fbea8273075b29ee7662d553"
+          }
+        },
+        {
+          "client_id": "210949688729-pbuv82pgunm805mvt3livcvn8hlq1m8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXFgNkfoKyru6jivSZVW6LhJ8sBj9O0Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210949688729-pbuv82pgunm805mvt3livcvn8hlq1m8a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "210949688729-t2n88m484ebrjnk2lp1b2eq1r5ffd8ca.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.anaaj"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
