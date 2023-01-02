@@ -4,6 +4,7 @@ import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
+import 'package:anaaj/screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
@@ -105,7 +106,16 @@ class RouterNotifier extends ChangeNotifier {
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
-                  child: Scaffold(),
+                  child: OtpVerificationScreen(
+                    phoneNumber: state.params['phonenumber'].toString(),
+                    onVerificationSuccessful: () async {
+                      if (state.extra != AppUser) {
+                        throw Exception("App user needs to be passed through GoRoute state");
+                      }
+                      AppUser appUser = state.extra as AppUser;
+                      ref.read(appUserProvider.notifier).state = appUser;
+                    },
+                  ),
                 );
               },
             ),

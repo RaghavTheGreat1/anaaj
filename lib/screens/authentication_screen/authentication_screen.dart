@@ -1,12 +1,23 @@
+import 'package:anaaj/models/donor_instituition.dart';
+import 'package:anaaj/models/receiver_instituition.dart';
+import 'package:anaaj/models/role.dart';
+import 'package:anaaj/models/volunteer.dart';
+import 'package:anaaj/router/route_paths_helper.dart';
+import 'package:anaaj/services/authentication_services.dart';
 import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../models/app_user.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Role selectedRole = Role.donor;
+    int phoneNumber = 0000000000;
     return Scaffold(
       appBar: AppBar(
         title: Text("Anaaj"),
@@ -19,6 +30,9 @@ class AuthenticationScreen extends StatelessWidget {
             CustomTextFormField(
               label: 'Phone number',
               hintText: 'xxxxx xxxxx',
+              onChanged: (value) {
+                phoneNumber = int.parse(value);
+              },
               keyboardType: TextInputType.phone,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9]')),
@@ -36,7 +50,53 @@ class AuthenticationScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final auth = AuthenticationServices();
+
+                      final user = await auth.fetchUserByPhoneNumber(
+                        phoneNumber,
+                        selectedRole,
+                      );
+                      if (user != null) {
+                        switch (selectedRole) {
+                          case Role.donor:
+                            user as DonorInstituition;
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                user.phoneNumber,
+                              ),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
+                            break;
+                          case Role.volunteer:
+                            user as Volunteer;
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                  user.phoneNumber),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
+                            break;
+                          case Role.receiver:
+                            user as ReceiverInstituition;
+                            context.go(
+                              RoutePathsHelper.verifyPhoneNumber(
+                                  user.phoneNumber),
+                              extra: AppUser(
+                                appUser: user,
+                              ),
+                            );
+                            break;
+                          default:
+                        }
+                      } else {
+                        context.go(RoutePathsHelper.register);
+                      }
+                      print(user);
+                    },
                     child: Text("submit"),
                   ),
                 ),
