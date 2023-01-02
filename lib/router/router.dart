@@ -103,6 +103,7 @@ class RouterNotifier extends ChangeNotifier {
             GoRoute(
               path: 'verify/:phonenumber',
               pageBuilder: (context, state) {
+                print("in verification screen");
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
@@ -110,7 +111,8 @@ class RouterNotifier extends ChangeNotifier {
                     phoneNumber: state.params['phonenumber'].toString(),
                     onVerificationSuccessful: () async {
                       if (state.extra != AppUser) {
-                        throw Exception("App user needs to be passed through GoRoute state");
+                        throw Exception(
+                            "App user needs to be passed through GoRoute state");
                       }
                       AppUser appUser = state.extra as AppUser;
                       ref.read(appUserProvider.notifier).state = appUser;
