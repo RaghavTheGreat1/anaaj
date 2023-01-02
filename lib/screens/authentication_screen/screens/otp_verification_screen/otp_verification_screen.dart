@@ -20,7 +20,7 @@ class OtpVerificationScreen extends StatefulWidget {
   });
 
   final String phoneNumber;
-  final Function onVerificationSuccessful;
+  final Function(PhoneAuthCredential) onVerificationSuccessful;
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -146,7 +146,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     formKey.currentState!.save();
     bool isValidated = formKey.currentState!.validate();
     if (isValidated) {
-      final FirebaseAuth auth = FirebaseAuth.instance;
       await internetConnectionService(
         onInternetAvaiable: () async {
           try {
@@ -155,9 +154,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               verificationId: _verificationCode,
               smsCode: enteredOtp,
             );
-            await auth.signInWithCredential(phoneAuthCredential);
+
+            await widget.onVerificationSuccessful(phoneAuthCredential);
             _verificationCode = "";
-            await widget.onVerificationSuccessful();
           } on FirebaseAuthException catch (e) {
             if (e.code == "invalid-verification-code") {
               showFailureSnackbar(

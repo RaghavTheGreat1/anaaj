@@ -11,6 +11,7 @@ void main() async {
   await AppInitializerService.instance.initialize();
   runApp(
     ProviderScope(
+      overrides: AppInitializerService.instance.riverpodOverrides,
       child: const AnaajApp(),
     ),
   );

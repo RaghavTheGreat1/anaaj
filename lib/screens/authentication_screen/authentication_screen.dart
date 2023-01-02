@@ -8,16 +8,23 @@ import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/app_user.dart';
 
-class AuthenticationScreen extends StatelessWidget {
+class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({super.key});
 
   @override
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
+}
+
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  Role selectedRole = Role.donor;
+  int phoneNumber = 0000000000;
+
+  @override
   Widget build(BuildContext context) {
-    Role selectedRole = Role.donor;
-    int phoneNumber = 0000000000;
     return Scaffold(
       appBar: AppBar(
         title: Text("Anaaj"),
@@ -58,13 +65,18 @@ class AuthenticationScreen extends StatelessWidget {
                         selectedRole,
                       );
                       if (user != null) {
+                        Box userBox = await Hive.openBox('user');
+                        await userBox.put(
+                            'signed_in_role_index', selectedRole.index);
+
                         switch (selectedRole) {
                           case Role.donor:
                             user as DonorInstituition;
                             context.go(
-                              RoutePathsHelper.verifyPhoneNumber(
-                                user.phoneNumber,
-                              ),
+                              '/auth' +
+                                  RoutePathsHelper.verifyPhoneNumber(
+                                    user.phoneNumber,
+                                  ),
                               extra: AppUser(
                                 appUser: user,
                               ),
@@ -73,8 +85,9 @@ class AuthenticationScreen extends StatelessWidget {
                           case Role.volunteer:
                             user as Volunteer;
                             context.go(
-                              RoutePathsHelper.verifyPhoneNumber(
-                                  user.phoneNumber),
+                              '/auth' +
+                                  RoutePathsHelper.verifyPhoneNumber(
+                                      user.phoneNumber),
                               extra: AppUser(
                                 appUser: user,
                               ),
@@ -83,8 +96,9 @@ class AuthenticationScreen extends StatelessWidget {
                           case Role.receiver:
                             user as ReceiverInstituition;
                             context.go(
-                              RoutePathsHelper.verifyPhoneNumber(
-                                  user.phoneNumber),
+                              '/auth' +
+                                  RoutePathsHelper.verifyPhoneNumber(
+                                      user.phoneNumber),
                               extra: AppUser(
                                 appUser: user,
                               ),
@@ -93,7 +107,8 @@ class AuthenticationScreen extends StatelessWidget {
                           default:
                         }
                       } else {
-                        context.go(RoutePathsHelper.register);
+                        context.go(
+                            '/auth/${RoutePathsHelper.register(phoneNumber)}');
                       }
                       print(user);
                     },

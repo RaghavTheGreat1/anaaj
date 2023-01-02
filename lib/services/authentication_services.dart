@@ -25,7 +25,7 @@ class AuthenticationServices {
   }
 
   /// Returns [DonorInstituition] or [Volunteer] or [ReceiverInstituition]
-  Object? fetchUserByPhoneNumber(int phoneNumber, Role role) async {
+  Future<Object?> fetchUserByPhoneNumber(int phoneNumber, Role role) async {
     Object? user;
     switch (role) {
       case Role.donor:
@@ -73,12 +73,11 @@ class AuthenticationServices {
 
   /// Creates a user in FirebaseAuth & saves the data to respective collection
   Future<UserCredential> createDonorInstituition(
-      DonorInstituition donorInstituition, String password) async {
+      DonorInstituition donorInstituition,
+      PhoneAuthCredential phoneAuthCredential) async {
     UserCredential credentials =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: donorInstituition.emailAddress,
-      password: password,
-    );
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+
     DonorInstituition donor =
         donorInstituition.copyWith(id: credentials.user!.uid);
     await FirebaseFirestore.instance
@@ -91,12 +90,11 @@ class AuthenticationServices {
 
   /// Creates a user in FirebaseAuth & saves the data to respective collection
   Future<UserCredential> createReceiverInstituition(
-      ReceiverInstituition receiverInstituition, String password) async {
+      ReceiverInstituition receiverInstituition,
+      PhoneAuthCredential phoneAuthCredential) async {
     UserCredential credentials =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: receiverInstituition.emailAddress,
-      password: password,
-    );
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+
     ReceiverInstituition receiver =
         receiverInstituition.copyWith(id: credentials.user!.uid);
     await FirebaseFirestore.instance
@@ -109,18 +107,23 @@ class AuthenticationServices {
 
   /// Creates a user in FirebaseAuth & saves the data to respective collection
   Future<UserCredential> createVolunteer(
-      Volunteer volunteer, String password) async {
+      Volunteer volunteer, PhoneAuthCredential phoneAuthCredential) async {
     UserCredential credentials =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: volunteer.emailAddress,
-      password: password,
-    );
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+
     Volunteer middlemen = volunteer.copyWith(id: credentials.user!.uid);
     await FirebaseFirestore.instance
         .collection(volunteersPath)
         .doc(middlemen.phoneNumber.toString())
         .set(middlemen.toJson());
 
+    return credentials;
+  }
+
+  Future<UserCredential> signInUser(
+      PhoneAuthCredential phoneAuthCredential) async {
+    UserCredential credentials =
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
     return credentials;
   }
 }

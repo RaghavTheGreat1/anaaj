@@ -1,15 +1,20 @@
 import 'package:anaaj/models/app_user.dart';
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
+import 'package:anaaj/models/role.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
-import 'package:anaaj/screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
+import 'package:anaaj/screens/authentication_screen/registration_screen/registration_screen.dart';
+import 'package:anaaj/screens/donor/donor_home_screen.dart';
+import 'package:anaaj/services/authentication_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../screens/authentication_screen/authentication_screen.dart';
+import '../screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -91,16 +96,6 @@ class RouterNotifier extends ChangeNotifier {
           },
           routes: [
             GoRoute(
-              path: RoutePathsHelper.register,
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: state.pageKey,
-                  transitionsBuilder: rightToLeftFadeTransition,
-                  child: Scaffold(),
-                );
-              },
-            ),
-            GoRoute(
               path: 'verify/:phonenumber',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
@@ -108,10 +103,10 @@ class RouterNotifier extends ChangeNotifier {
                   transitionsBuilder: rightToLeftFadeTransition,
                   child: OtpVerificationScreen(
                     phoneNumber: state.params['phonenumber'].toString(),
-                    onVerificationSuccessful: () async {
-                      if (state.extra != AppUser) {
-                        throw Exception("App user needs to be passed through GoRoute state");
-                      }
+                    onVerificationSuccessful:
+                        (PhoneAuthCredential phoneAuthCredential) async {
+                      AuthenticationServices auth = AuthenticationServices();
+                      await auth.signInUser(phoneAuthCredential);
                       AppUser appUser = state.extra as AppUser;
                       ref.read(appUserProvider.notifier).state = appUser;
                     },
@@ -119,12 +114,46 @@ class RouterNotifier extends ChangeNotifier {
                 );
               },
             ),
+            GoRoute(
+              path: 'register/:phonenumber',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: state.pageKey,
+                  transitionsBuilder: rightToLeftFadeTransition,
+                  child: RegistrationScreen(
+                    role: Role.donor,
+                    phoneNumber: int.parse(state.params['phonenumber'] ?? '0'),
+                  ),
+                );
+              },
+            ),
           ],
         ),
-        // GoRoute(
-        //   path: RoutePathsHelper.donor,
-        //   routes: [],
-        // ),
+        GoRoute(
+          path: RoutePathsHelper.donor,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: DonorHomeScreen(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'register/:phonenumber',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: state.pageKey,
+                  transitionsBuilder: rightToLeftFadeTransition,
+                  child: RegistrationScreen(
+                    role: Role.donor,
+                    phoneNumber: int.parse(state.params['phonenumber'] ?? '0'),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         // GoRoute(
         //   path: RoutePathsHelper.receiver,
         //   routes: [],
