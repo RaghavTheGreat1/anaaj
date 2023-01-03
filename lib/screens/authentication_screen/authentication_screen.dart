@@ -4,6 +4,7 @@ import 'package:anaaj/models/role.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/services/authentication_services.dart';
+import 'package:anaaj/widgets/role_selector.dart';
 import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,24 +35,37 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTextFormField(
-              label: 'Phone number',
-              hintText: 'xxxxx xxxxx',
-              onChanged: (value) {
-                phoneNumber = int.parse(value);
-              },
-              keyboardType: TextInputType.phone,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            Column(
+              children: [
+                RoleSelector(
+                  onChanged: (value) {
+                    selectedRole = RoleExt.getRoleByIndex(value);
+                    print(selectedRole);
+                  },
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                CustomTextFormField(
+                  label: 'Phone number',
+                  hintText: 'xxxxx xxxxx',
+                  onChanged: (value) {
+                    phoneNumber = int.parse(value);
+                  },
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  ],
+                  maxLength: 10,
+                  textInputAction: TextInputAction.done,
+                  prefixIcon: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("+91"),
+                    ],
+                  ),
+                ),
               ],
-              maxLength: 10,
-              textInputAction: TextInputAction.done,
-              prefixIcon: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("+91"),
-                ],
-              ),
             ),
             Row(
               children: [
@@ -108,7 +122,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                         }
                       } else {
                         context.go(
-                            '/auth/${RoutePathsHelper.register(phoneNumber)}');
+                          '/auth/${RoutePathsHelper.register(phoneNumber)}',
+                          extra: selectedRole,
+                        );
                       }
                       print(user);
                     },
