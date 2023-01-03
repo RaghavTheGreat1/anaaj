@@ -23,6 +23,7 @@ mixin _$FoodItem {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   bool get stockStatus => throw _privateConstructorUsedError;
+  DietType get dietType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $FoodItemCopyWith<$Res> {
   factory $FoodItemCopyWith(FoodItem value, $Res Function(FoodItem) then) =
       _$FoodItemCopyWithImpl<$Res, FoodItem>;
   @useResult
-  $Res call({String id, String name, bool stockStatus});
+  $Res call({String id, String name, bool stockStatus, DietType dietType});
 }
 
 /// @nodoc
@@ -54,6 +55,7 @@ class _$FoodItemCopyWithImpl<$Res, $Val extends FoodItem>
     Object? id = null,
     Object? name = null,
     Object? stockStatus = null,
+    Object? dietType = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -68,6 +70,10 @@ class _$FoodItemCopyWithImpl<$Res, $Val extends FoodItem>
           ? _value.stockStatus
           : stockStatus // ignore: cast_nullable_to_non_nullable
               as bool,
+      dietType: null == dietType
+          ? _value.dietType
+          : dietType // ignore: cast_nullable_to_non_nullable
+              as DietType,
     ) as $Val);
   }
 }
@@ -79,7 +85,7 @@ abstract class _$$_FoodItemCopyWith<$Res> implements $FoodItemCopyWith<$Res> {
       __$$_FoodItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, bool stockStatus});
+  $Res call({String id, String name, bool stockStatus, DietType dietType});
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ class __$$_FoodItemCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? stockStatus = null,
+    Object? dietType = null,
   }) {
     return _then(_$_FoodItem(
       id: null == id
@@ -110,6 +117,10 @@ class __$$_FoodItemCopyWithImpl<$Res>
           ? _value.stockStatus
           : stockStatus // ignore: cast_nullable_to_non_nullable
               as bool,
+      dietType: null == dietType
+          ? _value.dietType
+          : dietType // ignore: cast_nullable_to_non_nullable
+              as DietType,
     ));
   }
 }
@@ -118,7 +129,10 @@ class __$$_FoodItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FoodItem implements _FoodItem {
   const _$_FoodItem(
-      {required this.id, required this.name, required this.stockStatus});
+      {required this.id,
+      required this.name,
+      required this.stockStatus,
+      required this.dietType});
 
   factory _$_FoodItem.fromJson(Map<String, dynamic> json) =>
       _$$_FoodItemFromJson(json);
@@ -129,10 +143,12 @@ class _$_FoodItem implements _FoodItem {
   final String name;
   @override
   final bool stockStatus;
+  @override
+  final DietType dietType;
 
   @override
   String toString() {
-    return 'FoodItem(id: $id, name: $name, stockStatus: $stockStatus)';
+    return 'FoodItem(id: $id, name: $name, stockStatus: $stockStatus, dietType: $dietType)';
   }
 
   @override
@@ -143,12 +159,14 @@ class _$_FoodItem implements _FoodItem {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.stockStatus, stockStatus) ||
-                other.stockStatus == stockStatus));
+                other.stockStatus == stockStatus) &&
+            (identical(other.dietType, dietType) ||
+                other.dietType == dietType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, stockStatus);
+  int get hashCode => Object.hash(runtimeType, id, name, stockStatus, dietType);
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +186,8 @@ abstract class _FoodItem implements FoodItem {
   const factory _FoodItem(
       {required final String id,
       required final String name,
-      required final bool stockStatus}) = _$_FoodItem;
+      required final bool stockStatus,
+      required final DietType dietType}) = _$_FoodItem;
 
   factory _FoodItem.fromJson(Map<String, dynamic> json) = _$_FoodItem.fromJson;
 
@@ -178,6 +197,8 @@ abstract class _FoodItem implements FoodItem {
   String get name;
   @override
   bool get stockStatus;
+  @override
+  DietType get dietType;
   @override
   @JsonKey(ignore: true)
   _$$_FoodItemCopyWith<_$_FoodItem> get copyWith =>

@@ -49,6 +49,27 @@ class DonorHomeScreen extends StatelessWidget {
               [
                 Column(
                   children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Status'),
+                                  Text(
+                                    'Open',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Text("Quick Shortcuts"),
                     SizedBox(
                       height: 8,
