@@ -6,7 +6,8 @@ import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/screens/authentication_screen/registration_screen/registration_screen.dart';
-import 'package:anaaj/screens/donor/donor_home_screen.dart';
+import 'package:anaaj/screens/donor/donor_bottom_navgiation_screen.dart';
+import 'package:anaaj/screens/donor/screens/home_screen/donor_home_screen.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +136,7 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: DonorHomeScreen(),
+              child: DonorBottomNavigationScreen(),
             );
           },
           routes: [

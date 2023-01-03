@@ -1,3 +1,5 @@
+import 'package:anaaj/screens/donor/screens/home_screen/donor_home_screen.dart';
+import 'package:anaaj/screens/donor/screens/menu_screen/donor_menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class DonorBottomNavController {
@@ -17,6 +19,7 @@ class DonorBottomNavController {
 
   set index(int index) {
     _index = index;
+    print(index);
     controller.animateToPage(
       index,
       duration: Duration(milliseconds: 400),
@@ -30,12 +33,15 @@ class DonorBottomNavController {
           label: "Dashboard",
         ),
         NavigationDestination(
-          icon: Icon(Icons.more_horiz_rounded),
+          icon: Icon(
+            Icons.food_bank_outlined,
+          ),
           label: "Menu",
         ),
       ];
 
   List<Widget> get destinations => [
-      
+        DonorHomeScreen(),
+        DonorMenuScreen(),
       ];
 }

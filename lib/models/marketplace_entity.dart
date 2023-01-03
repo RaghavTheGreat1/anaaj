@@ -11,7 +11,7 @@ class MarketplaceEntity with _$MarketplaceEntity {
     required DonorInstituition donorInstituition,
     // required List<FoodItem> foodItem,
   }) = _MarketplaceEntity;
-
+  
   factory MarketplaceEntity.fromJson(Map<String, dynamic> json) =>
       _$MarketplaceEntityFromJson(json);
 }

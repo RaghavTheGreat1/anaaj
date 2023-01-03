@@ -5,12 +5,7 @@ import 'package:flutter/material.dart';
 class DonorBottomNavigationScreen extends StatefulWidget {
   const DonorBottomNavigationScreen({
     Key? key,
-    required this.currentIndex,
-    required this.pageController,
   }) : super(key: key);
-
-  final ValueNotifier<int> currentIndex;
-  final PageController pageController;
 
   @override
   State<DonorBottomNavigationScreen> createState() =>
@@ -31,7 +26,7 @@ class _DonorBottomNavigationScreenState
         },
       ),
       body: PageView(
-        controller: widget.pageController,
+        controller: DonorBottomNavController.instance.controller,
         physics: const NeverScrollableScrollPhysics(),
         children: DonorBottomNavController.instance.destinations,
       ),
@@ -68,6 +63,7 @@ class BottomNavigationBar extends StatelessWidget {
                   selectedIndex: index,
                   onDestinationSelected: (value) {
                     currentIndex.value = value;
+                    onDestinationSelected(value);
                   },
                   destinations: destinations,
                 );
