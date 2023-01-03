@@ -1,18 +1,15 @@
 import 'package:anaaj/models/app_user.dart';
-import 'package:anaaj/models/donor_instituition.dart';
-import 'package:anaaj/models/receiver_instituition.dart';
-import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
-import 'package:anaaj/screens/HomePage/EnlargedCard.dart';
 import 'package:anaaj/screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
+import 'package:anaaj/screens/receiver/home_screen/screens/marketplace_entity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../screens/authentication_screen/authentication_screen.dart';
-import '../screens/HomePage/marketplace.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
+import '../screens/receiver/home_screen/marketplace_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
@@ -88,7 +85,7 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: MarketPlace(),
+              child: MarketPlaceScreen(),
             );
           },
         ),
@@ -98,7 +95,7 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: EnlargedCard(),
+              child: MarketplaceEntityScreen(),
             );
           },
         ),
