@@ -34,7 +34,7 @@ class _DonorBottomNavigationScreenState
   }
 }
 
-class BottomNavigationBar extends StatelessWidget {
+class BottomNavigationBar extends StatefulWidget {
   const BottomNavigationBar({
     Key? key,
     required this.destinations,
@@ -47,8 +47,14 @@ class BottomNavigationBar extends StatelessWidget {
   final MaterialStateProperty<Color?>? iconColor;
 
   @override
+  State<BottomNavigationBar> createState() => _BottomNavigationBarState();
+}
+
+class _BottomNavigationBarState extends State<BottomNavigationBar> {
+  final ValueNotifier<int> currentIndex = ValueNotifier(0);
+  
+  @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int> currentIndex = ValueNotifier(0);
     final ThemeData theme = Theme.of(context);
     return SizedBox(
       height: 90,
@@ -63,9 +69,9 @@ class BottomNavigationBar extends StatelessWidget {
                   selectedIndex: index,
                   onDestinationSelected: (value) {
                     currentIndex.value = value;
-                    onDestinationSelected(value);
+                    widget.onDestinationSelected(value);
                   },
-                  destinations: destinations,
+                  destinations: widget.destinations,
                 );
               },
             ),
