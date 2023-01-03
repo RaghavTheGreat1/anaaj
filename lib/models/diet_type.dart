@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 enum DietType {
   vegetarian,
   nonVegetarian,
@@ -9,9 +12,9 @@ extension DietTypeExtension on DietType {
     return DietType.values.elementAt(index);
   }
 
-  String displayName(DietType dietType) {
+  String get displayName {
     String name;
-    switch (dietType) {
+    switch (this) {
       case DietType.vegetarian:
         name = 'Vegetarian';
         break;
@@ -45,5 +48,25 @@ extension DietTypeExtension on DietType {
         break;
     }
     return dietType;
+  }
+
+  IconData get getIconData {
+    IconData iconData;
+    switch (this) {
+      case DietType.vegetarian:
+        iconData = FontAwesomeIcons.leaf;
+        break;
+      case DietType.nonVegetarian:
+        iconData = FontAwesomeIcons.drumstickBite;
+        break;
+      case DietType.eggetarian:
+        iconData = FontAwesomeIcons.egg;
+        break;
+      default:
+        iconData = FontAwesomeIcons.leaf;
+
+        break;
+    }
+    return iconData;
   }
 }

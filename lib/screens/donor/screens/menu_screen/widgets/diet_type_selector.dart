@@ -113,7 +113,7 @@ class _CustomTab extends StatelessWidget {
               },
             ),
             const SizedBox(
-              width: 1,
+              width: 8,
             ),
             TweenAnimationBuilder<double>(
               duration: const Duration(milliseconds: 700),
