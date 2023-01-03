@@ -19,7 +19,7 @@ class OnboardingScreen extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      context.go(RoutePathsHelper.auth );
+                      context.go(RoutePathsHelper.auth);
                     },
                     child: Text("get started"),
                   ),
