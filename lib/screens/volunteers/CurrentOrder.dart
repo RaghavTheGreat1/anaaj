@@ -55,9 +55,39 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     children: <Widget>[
                       Icon(Icons.location_on),
                       SizedBox(width: 8.0),
-                      Text('Location of Drop:'),
+                      Text('Location of Pickup:'),
                       SizedBox(width: 8.0),
-                      Text('Jayanafar.'),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            'This is a very long text that will go to the next line when it reaches the end of the available space.',
+                            maxLines: 6,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 8.0),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.location_on),
+                      SizedBox(width: 8.0),
+                      Text('Location of Drop:'),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            'This is a very long text that will go to the next line when it reaches the end of the available space.',
+                            maxLines: 6,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   Row(
@@ -69,8 +99,8 @@ class _CurrentOrderState extends State<CurrentOrder> {
                         onPressed: () {
                           showSuccessSnackbar(
                             context,
-                            title: 'Order Drop Confirmed',
-                            message: 'Thank You for doing such a great job!',
+                            title: 'Thank You',
+                            message: 'You have successfully dropped the food',
                             height: 0,
                           );
                           // Confirm drop action
@@ -80,9 +110,8 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       ElevatedButton.icon(
                         icon: Icon(Icons.phone),
                         label: Text('Call the Customer'),
-                        onPressed: () async {
-                          final Uri phone = Uri.parse('tel:1234567890');
-                          await launchUrl(phone);
+                        onPressed: () {
+                          // Call the agent action
                         },
                       ),
                     ],
