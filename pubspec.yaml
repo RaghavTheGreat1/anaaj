@@ -51,6 +51,7 @@ dependencies:
   json_annotation: ^4.7.0
   pin_code_fields: ^7.4.0
   unicons: ^2.1.0
+  url_launcher: ^6.1.7
   uuid: ^3.0.7
 
 dev_dependencies:
