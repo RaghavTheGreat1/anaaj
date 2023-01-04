@@ -16,30 +16,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/app_user.dart';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-class AuthenticationScreen extends StatefulHookConsumerWidget {
-  const AuthenticationScreen({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatefulWidget {
+  const AuthenticationScreen({super.key});
 
   @override
-  _AuthenticationScreen createState() => _AuthenticationScreen();
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
 }
 
-class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
-  // AuthenticationScreen({super.key});
-  final auth = AuthenticationServices();
-  Role selectedRole = Role.volunteer;
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  Role selectedRole = Role.donor;
   int phoneNumber = 0000000000;
-  int code = 0000;
-  String? verification_id;
-
-  Completer<UserCredential?> c = new Completer();
-
-  void setVerificationId(String code) {
-    setState(() {
-      verification_id = code;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +75,8 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
+                      final auth = AuthenticationServices();
+
                       final user = await auth.fetchUserByPhoneNumber(
                         phoneNumber,
                         selectedRole,

@@ -146,6 +146,7 @@ class AuthenticationServices {
   /// Creates a user in FirebaseAuth & saves the data to respective collection
   Future<UserCredential> createVolunteer(
       Volunteer volunteer, PhoneAuthCredential phoneAuthCredential) async {
+    print("createVolunteer");
     UserCredential credentials =
         await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
 

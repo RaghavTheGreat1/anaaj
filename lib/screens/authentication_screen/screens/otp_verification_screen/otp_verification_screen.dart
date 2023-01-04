@@ -198,6 +198,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               await signUser();
             },
             verificationFailed: (error) {
+              print("verification failed");
+              print(error.code);
+              print(error.message);
               showFailureSnackbar(
                 context,
                 title: 'Verification Failed',

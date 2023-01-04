@@ -57,6 +57,7 @@ class AppInitializerService {
     await _configureSystem();
     await Hive.initFlutter();
     await verifyUser();
+    print("app init finished");
     return fcmToken;
   }
 
@@ -86,11 +87,16 @@ class AppInitializerService {
     print(user);
     if (user != null) {
       Role signedRole = await fetchSignedInRole();
+      late Object? fetchedUser;
 
-      Object? fetchedUser = await auth.fetchUserByPhoneNumber(
-        int.parse(user.phoneNumber!.substring(3)),
-        signedRole,
-      );
+      try {
+        fetchedUser = await auth.fetchUserByPhoneNumber(
+          int.parse(user.phoneNumber!.substring(3)),
+          signedRole,
+        );
+      } catch (err) {
+        fetchedUser = null;
+      }
 
       if (fetchedUser == null) {
         await FirebaseAuth.instance.signOut();
