@@ -39,8 +39,8 @@ class AppInitializerService {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    auth.useAuthEmulator("192.168.214.49", 8081);
-    firestore.useFirestoreEmulator("192.168.214.49", 8081);
+    // auth.useAuthEmulator("192.168.214.49", 8081);
+    // firestore.useFirestoreEmulator("192.168.214.49", 8081);
 
     // await FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
     // FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);

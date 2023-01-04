@@ -10,6 +10,7 @@ _$_FoodItem _$$_FoodItemFromJson(Map<String, dynamic> json) => _$_FoodItem(
       id: json['id'] as String,
       name: json['name'] as String,
       stockStatus: json['stockStatus'] as bool,
+      dietType: $enumDecode(_$DietTypeEnumMap, json['dietType']),
     );
 
 Map<String, dynamic> _$$_FoodItemToJson(_$_FoodItem instance) =>
@@ -17,4 +18,11 @@ Map<String, dynamic> _$$_FoodItemToJson(_$_FoodItem instance) =>
       'id': instance.id,
       'name': instance.name,
       'stockStatus': instance.stockStatus,
+      'dietType': _$DietTypeEnumMap[instance.dietType]!,
     };
+
+const _$DietTypeEnumMap = {
+  DietType.vegetarian: 'vegetarian',
+  DietType.nonVegetarian: 'nonVegetarian',
+  DietType.eggetarian: 'eggetarian',
+};

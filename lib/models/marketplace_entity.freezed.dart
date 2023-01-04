@@ -22,6 +22,9 @@ MarketplaceEntity _$MarketplaceEntityFromJson(Map<String, dynamic> json) {
 mixin _$MarketplaceEntity {
   String get id => throw _privateConstructorUsedError;
   DonorInstituition get donorInstituition => throw _privateConstructorUsedError;
+  List<FoodItem> get foodItems => throw _privateConstructorUsedError;
+  bool get isOpen => throw _privateConstructorUsedError;
+  bool get isListed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +38,12 @@ abstract class $MarketplaceEntityCopyWith<$Res> {
           MarketplaceEntity value, $Res Function(MarketplaceEntity) then) =
       _$MarketplaceEntityCopyWithImpl<$Res, MarketplaceEntity>;
   @useResult
-  $Res call({String id, DonorInstituition donorInstituition});
+  $Res call(
+      {String id,
+      DonorInstituition donorInstituition,
+      List<FoodItem> foodItems,
+      bool isOpen,
+      bool isListed});
 
   $DonorInstituitionCopyWith<$Res> get donorInstituition;
 }
@@ -55,6 +63,9 @@ class _$MarketplaceEntityCopyWithImpl<$Res, $Val extends MarketplaceEntity>
   $Res call({
     Object? id = null,
     Object? donorInstituition = null,
+    Object? foodItems = null,
+    Object? isOpen = null,
+    Object? isListed = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -65,6 +76,18 @@ class _$MarketplaceEntityCopyWithImpl<$Res, $Val extends MarketplaceEntity>
           ? _value.donorInstituition
           : donorInstituition // ignore: cast_nullable_to_non_nullable
               as DonorInstituition,
+      foodItems: null == foodItems
+          ? _value.foodItems
+          : foodItems // ignore: cast_nullable_to_non_nullable
+              as List<FoodItem>,
+      isOpen: null == isOpen
+          ? _value.isOpen
+          : isOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isListed: null == isListed
+          ? _value.isListed
+          : isListed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -85,7 +108,12 @@ abstract class _$$_MarketplaceEntityCopyWith<$Res>
       __$$_MarketplaceEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, DonorInstituition donorInstituition});
+  $Res call(
+      {String id,
+      DonorInstituition donorInstituition,
+      List<FoodItem> foodItems,
+      bool isOpen,
+      bool isListed});
 
   @override
   $DonorInstituitionCopyWith<$Res> get donorInstituition;
@@ -104,6 +132,9 @@ class __$$_MarketplaceEntityCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? donorInstituition = null,
+    Object? foodItems = null,
+    Object? isOpen = null,
+    Object? isListed = null,
   }) {
     return _then(_$_MarketplaceEntity(
       id: null == id
@@ -114,6 +145,18 @@ class __$$_MarketplaceEntityCopyWithImpl<$Res>
           ? _value.donorInstituition
           : donorInstituition // ignore: cast_nullable_to_non_nullable
               as DonorInstituition,
+      foodItems: null == foodItems
+          ? _value._foodItems
+          : foodItems // ignore: cast_nullable_to_non_nullable
+              as List<FoodItem>,
+      isOpen: null == isOpen
+          ? _value.isOpen
+          : isOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isListed: null == isListed
+          ? _value.isListed
+          : isListed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -122,7 +165,12 @@ class __$$_MarketplaceEntityCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MarketplaceEntity implements _MarketplaceEntity {
   const _$_MarketplaceEntity(
-      {required this.id, required this.donorInstituition});
+      {required this.id,
+      required this.donorInstituition,
+      required final List<FoodItem> foodItems,
+      required this.isOpen,
+      required this.isListed})
+      : _foodItems = foodItems;
 
   factory _$_MarketplaceEntity.fromJson(Map<String, dynamic> json) =>
       _$$_MarketplaceEntityFromJson(json);
@@ -131,10 +179,22 @@ class _$_MarketplaceEntity implements _MarketplaceEntity {
   final String id;
   @override
   final DonorInstituition donorInstituition;
+  final List<FoodItem> _foodItems;
+  @override
+  List<FoodItem> get foodItems {
+    if (_foodItems is EqualUnmodifiableListView) return _foodItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_foodItems);
+  }
+
+  @override
+  final bool isOpen;
+  @override
+  final bool isListed;
 
   @override
   String toString() {
-    return 'MarketplaceEntity(id: $id, donorInstituition: $donorInstituition)';
+    return 'MarketplaceEntity(id: $id, donorInstituition: $donorInstituition, foodItems: $foodItems, isOpen: $isOpen, isListed: $isListed)';
   }
 
   @override
@@ -144,12 +204,18 @@ class _$_MarketplaceEntity implements _MarketplaceEntity {
             other is _$_MarketplaceEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.donorInstituition, donorInstituition) ||
-                other.donorInstituition == donorInstituition));
+                other.donorInstituition == donorInstituition) &&
+            const DeepCollectionEquality()
+                .equals(other._foodItems, _foodItems) &&
+            (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
+            (identical(other.isListed, isListed) ||
+                other.isListed == isListed));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, donorInstituition);
+  int get hashCode => Object.hash(runtimeType, id, donorInstituition,
+      const DeepCollectionEquality().hash(_foodItems), isOpen, isListed);
 
   @JsonKey(ignore: true)
   @override
@@ -168,9 +234,11 @@ class _$_MarketplaceEntity implements _MarketplaceEntity {
 
 abstract class _MarketplaceEntity implements MarketplaceEntity {
   const factory _MarketplaceEntity(
-          {required final String id,
-          required final DonorInstituition donorInstituition}) =
-      _$_MarketplaceEntity;
+      {required final String id,
+      required final DonorInstituition donorInstituition,
+      required final List<FoodItem> foodItems,
+      required final bool isOpen,
+      required final bool isListed}) = _$_MarketplaceEntity;
 
   factory _MarketplaceEntity.fromJson(Map<String, dynamic> json) =
       _$_MarketplaceEntity.fromJson;
@@ -179,6 +247,12 @@ abstract class _MarketplaceEntity implements MarketplaceEntity {
   String get id;
   @override
   DonorInstituition get donorInstituition;
+  @override
+  List<FoodItem> get foodItems;
+  @override
+  bool get isOpen;
+  @override
+  bool get isListed;
   @override
   @JsonKey(ignore: true)
   _$$_MarketplaceEntityCopyWith<_$_MarketplaceEntity> get copyWith =>

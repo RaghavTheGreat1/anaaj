@@ -11,6 +11,11 @@ _$_MarketplaceEntity _$$_MarketplaceEntityFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       donorInstituition: DonorInstituition.fromJson(
           json['donorInstituition'] as Map<String, dynamic>),
+      foodItems: (json['foodItems'] as List<dynamic>)
+          .map((e) => FoodItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      isOpen: json['isOpen'] as bool,
+      isListed: json['isListed'] as bool,
     );
 
 Map<String, dynamic> _$$_MarketplaceEntityToJson(
@@ -18,4 +23,7 @@ Map<String, dynamic> _$$_MarketplaceEntityToJson(
     <String, dynamic>{
       'id': instance.id,
       'donorInstituition': instance.donorInstituition.toJson(),
+      'foodItems': instance.foodItems.map((e) => e.toJson()).toList(),
+      'isOpen': instance.isOpen,
+      'isListed': instance.isListed,
     };

@@ -334,6 +334,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
           address: address,
           fcmToken: ref.read(fcmTokenProvider),
         );
+        print("phone credential");
+        print(phoneAuthCredential);
         await auth.createVolunteer(
           volunteer,
           phoneAuthCredential,

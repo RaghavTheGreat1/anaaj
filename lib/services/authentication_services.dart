@@ -6,11 +6,8 @@ import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/role.dart';
-
-import '../providers/code_sent_provider.dart';
 
 class AuthenticationServices {
   String donorInstituitionsPath = 'donor_instituitions';
@@ -146,7 +143,6 @@ class AuthenticationServices {
   /// Creates a user in FirebaseAuth & saves the data to respective collection
   Future<UserCredential> createVolunteer(
       Volunteer volunteer, PhoneAuthCredential phoneAuthCredential) async {
-    print("createVolunteer");
     UserCredential credentials =
         await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
 
