@@ -144,36 +144,18 @@ class AuthenticationServices {
   }
 
   /// Creates a user in FirebaseAuth & saves the data to respective collection
-  Future<UserCredential?> createVolunteer(
-      int phoneNumber,
-      WidgetRef ref,
-      String? verification_id,
-      void setCode(String code),
-      String? fcmToken,
-      Completer<UserCredential?> c) async {
-    // UserCredential? _credentials;
-    print("verifyPhoneNumber");
-    await auth.verifyPhoneNumber(
-        phoneNumber: "+91" + phoneNumber.toString(),
-        verificationCompleted: (PhoneAuthCredential credentials) async {
-          final user_creds = await auth.signInWithCredential(credentials);
-          await _createUserWithCredentials(user_creds, fcmToken, c);
-          c.complete();
-        },
-        verificationFailed: (err) {
-          print("verificationFailed");
-          print(err);
-          print(phoneNumber);
-          c.complete();
-        },
-        codeSent: (String code, int? forceResendingToken) {
-          ref.read(codeSentProvider.notifier).toggle();
-          verification_id = code;
-          setCode(verification_id!);
-        },
-        codeAutoRetrievalTimeout: (timeout) {});
+  Future<UserCredential> createVolunteer(
+      Volunteer volunteer, PhoneAuthCredential phoneAuthCredential) async {
+    UserCredential credentials =
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
 
-    return c.future;
+    Volunteer middlemen = volunteer.copyWith(id: credentials.user!.uid);
+    await FirebaseFirestore.instance
+        .collection(volunteersPath)
+        .doc(middlemen.phoneNumber.toString())
+        .set(middlemen.toJson());
+
+    return credentials;
   }
 
   Future<UserCredential> signInUser(

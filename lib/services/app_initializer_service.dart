@@ -36,33 +36,26 @@ class AppInitializerService {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);
-    FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
-    // final settings = await FirebaseMessaging.instance.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
+    auth.useAuthEmulator("192.168.214.49", 8081);
+    firestore.useFirestoreEmulator("192.168.214.49", 8081);
 
-    Future<PermissionStatus> permissionStatus =
-        NotificationPermissions.getNotificationPermissionStatus();
+    // await FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
+    // FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);
+
+    PermissionStatus permissionStatus =
+        await NotificationPermissions.getNotificationPermissionStatus();
     if (permissionStatus == PermissionStatus.denied ||
         permissionStatus == PermissionStatus.unknown) {
-      Future<PermissionStatus> permissionStatus =
-          NotificationPermissions.requestNotificationPermissions();
+      await NotificationPermissions.requestNotificationPermissions();
     }
 
     final fcmToken = await FirebaseMessaging.instance.getToken();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await _configureSystem();
     await Hive.initFlutter();
-    await _configureSystem();
-
     await verifyUser();
     return fcmToken;
   }

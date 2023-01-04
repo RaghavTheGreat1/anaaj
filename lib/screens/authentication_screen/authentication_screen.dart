@@ -4,9 +4,9 @@ import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/role.dart';
 import 'package:anaaj/models/volunteer.dart';
-import 'package:anaaj/providers/fcm_provider.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/services/authentication_services.dart';
+import 'package:anaaj/widgets/role_selector.dart';
 import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../models/app_user.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../providers/code_sent_provider.dart';
 
 class AuthenticationScreen extends StatefulHookConsumerWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -44,9 +43,6 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool code_sent = ref.watch(codeSentProvider);
-    String? fcmToken = ref.watch(fcmTokenProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Anaaj"),
@@ -56,69 +52,52 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTextFormField(
-              label: 'Phone number',
-              hintText: 'xxxxx xxxxx',
-              onChanged: (value) {
-                setState(() {
-                  phoneNumber = int.parse(value);
-                });
-              },
-              keyboardType: TextInputType.phone,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-              ],
-              maxLength: 10,
-              // textInputAction: TextInputAction.done,
-              prefixIcon: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("+91"),
-                ],
-              ),
-            ),
-            if (code_sent)
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Expanded(
-                    child: TextFormField(
+            Column(
+              children: [
+                RoleSelector(
                   onChanged: (value) {
-                    code = int.parse(value);
+                    selectedRole = RoleExt.getRoleByIndex(value);
+                    print(selectedRole);
+                  },
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                CustomTextFormField(
+                  label: 'Phone number',
+                  hintText: 'xxxxx xxxxx',
+                  onChanged: (value) {
+                    phoneNumber = int.parse(value);
                   },
                   keyboardType: TextInputType.phone,
-                  maxLength: 6,
-                  // textInputAction: TextInputAction.done,
-                )),
-                ElevatedButton(
-                  onPressed: () async {
-                    print("pressed");
-                    print(verification_id);
-                    if (verification_id != null)
-                      await auth.verifyCode(
-                          verification_id!, code.toString(), fcmToken, c);
-                    else
-                      print("verification_id is null");
-                  },
-                  child: Text("submit code"),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  ],
+                  maxLength: 10,
+                  textInputAction: TextInputAction.done,
+                  prefixIcon: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("+91"),
+                    ],
+                  ),
                 ),
-              ]),
+              ],
+            ),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      await auth.createVolunteer(phoneNumber, ref,
-                          verification_id, setVerificationId, fcmToken, c);
-                      print('createVolunteer finished');
-
                       final user = await auth.fetchUserByPhoneNumber(
                         phoneNumber,
                         selectedRole,
                       );
                       if (user != null) {
-                        print("user not null");
                         Box userBox = await Hive.openBox('user');
                         await userBox.put(
                             'signed_in_role_index', selectedRole.index);
+
                         switch (selectedRole) {
                           case Role.donor:
                             user as DonorInstituition;
@@ -158,7 +137,9 @@ class _AuthenticationScreen extends ConsumerState<AuthenticationScreen> {
                         }
                       } else {
                         context.go(
-                            '/auth/${RoutePathsHelper.register(phoneNumber)}');
+                          '/auth/${RoutePathsHelper.register(phoneNumber)}',
+                          extra: selectedRole,
+                        );
                       }
                       print("user");
                       print(user);

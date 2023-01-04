@@ -122,7 +122,7 @@ class RouterNotifier extends ChangeNotifier {
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
                   child: RegistrationScreen(
-                    role: Role.donor,
+                    role: state.extra as Role,
                     phoneNumber: int.parse(state.params['phonenumber'] ?? '0'),
                   ),
                 );
@@ -139,21 +139,7 @@ class RouterNotifier extends ChangeNotifier {
               child: DonorHomeScreen(),
             );
           },
-          routes: [
-            GoRoute(
-              path: 'register/:phonenumber',
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: state.pageKey,
-                  transitionsBuilder: rightToLeftFadeTransition,
-                  child: RegistrationScreen(
-                    role: Role.donor,
-                    phoneNumber: int.parse(state.params['phonenumber'] ?? '0'),
-                  ),
-                );
-              },
-            ),
-          ],
+          routes: [],
         ),
         // GoRoute(
         //   path: RoutePathsHelper.receiver,

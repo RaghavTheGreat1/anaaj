@@ -28,11 +28,10 @@ class AnaajApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
-    Future(() {
-      ref.read(fcmTokenProvider.notifier).state = fcmToken;
-    });
     FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-      ref.read(fcmTokenProvider.notifier).state = fcmToken;
+      Future(() {
+        ref.read(fcmTokenProvider.notifier).state = fcmToken;
+      });
     });
 
     return MaterialApp.router(

@@ -1,6 +1,7 @@
 import 'package:anaaj/models/address.dart';
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
+import 'package:anaaj/providers/fcm_provider.dart';
 import 'package:anaaj/screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:anaaj/widgets/buttons/loader_button.dart';
@@ -325,19 +326,20 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
         ref.read(appUserProvider.notifier).state = appUser;
         break;
       case Role.volunteer:
-        // Volunteer volunteer = Volunteer(
-        //   id: phoneNumber.toString(),
-        //   name: name,
-        //   phoneNumber: phoneNumber,
-        //   emailAddress: emailAddress,
-        //   address: address,
-        // );
-        // await auth.createVolunteer(
-        //   volunteer,
-        //   phoneAuthCredential,
-        // );
-        // AppUser appUser = AppUser(appUser: volunteer);
-        // ref.read(appUserProvider.notifier).state = appUser;
+        Volunteer volunteer = Volunteer(
+          id: phoneNumber.toString(),
+          name: name,
+          phoneNumber: phoneNumber,
+          emailAddress: emailAddress,
+          address: address,
+          fcmToken: ref.read(fcmTokenProvider),
+        );
+        await auth.createVolunteer(
+          volunteer,
+          phoneAuthCredential,
+        );
+        AppUser appUser = AppUser(appUser: volunteer);
+        ref.read(appUserProvider.notifier).state = appUser;
         break;
       case Role.receiver:
         ReceiverInstituition recevier = ReceiverInstituition(
