@@ -1,4 +1,5 @@
 import 'package:anaaj/models/donor_instituition.dart';
+import 'package:anaaj/models/marketplace_entity.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,6 +85,12 @@ class AuthenticationServices {
         .collection(donorInstituitionsPath)
         .doc(donor.phoneNumber.toString())
         .set(donor.toJson());
+
+    MarketplaceEntity entity = MarketplaceEntity.raw(donorInstituition);
+    await FirebaseFirestore.instance
+        .collection('marketplace')
+        .doc(donor.phoneNumber.toString())
+        .set(entity.toJson());
 
     return credentials;
   }

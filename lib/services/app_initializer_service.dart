@@ -53,7 +53,7 @@ class AppInitializerService {
   Future<void> verifyUser() async {
     AuthenticationServices auth = AuthenticationServices();
     User? user = FirebaseAuth.instance.currentUser;
-    print(user);
+
     if (user != null) {
       Role signedRole = await fetchSignedInRole();
 
