@@ -75,7 +75,7 @@ class RouterNotifier extends ChangeNotifier {
       }
     }
 
-    // There's no need for a redirect at this point.
+    //There's no need for a redirect at this point.
     return null;
   }
 
