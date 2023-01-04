@@ -7,6 +7,9 @@ import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/screens/authentication_screen/registration_screen/registration_screen.dart';
 import 'package:anaaj/screens/donor/donor_bottom_navgiation_screen.dart';
+import 'package:anaaj/screens/volunteers/CurrentOrder.dart';
+import 'package:anaaj/screens/volunteers/History.dart';
+import 'package:anaaj/screens/volunteers/VolunteerDashBoard.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/VolunteerDashboard',
     debugLogDiagnostics: true,
     refreshListenable: router,
     redirect: router._redirectLogic,
@@ -46,34 +49,34 @@ class RouterNotifier extends ChangeNotifier {
 
     // From here we can use the state and implement our custom logic
 
-    final areWeLoggingIn = state.location == '/' ||
-        state.location.contains('/auth') ||
-        state.location.contains('/verify');
+    // final areWeLoggingIn = state.location == '/' ||
+    //     state.location.contains('/auth') ||
+    //     state.location.contains('/verify');
 
-    if (user == null) {
-      // We're not logged in
-      // So, IF we aren't in the login page, go there.
-      return areWeLoggingIn ? null : '/';
-    }
-    // We're logged in
+    // if (user == null) {
+    //   // We're not logged in
+    //   // So, IF we aren't in the login page, go there.
+    //   return areWeLoggingIn ? null : '/';
+    // }
+    // // We're logged in
 
-    // At this point, IF we're in the login page, go to the home page
+    // // At this point, IF we're in the login page, go to the home page
 
-    if (areWeLoggingIn) {
-      Object appUser = user.appUser;
-      if (appUser is DonorInstituition) {
-        return RoutePathsHelper.donor;
-      } else if (appUser is ReceiverInstituition) {
-        return RoutePathsHelper.receiver;
-      } else if (appUser is Volunteer) {
-        return RoutePathsHelper.volunteer;
-      } else {
-        return null;
-      }
-    }
+    // if (areWeLoggingIn) {
+    //   Object appUser = user.appUser;
+    //   if (appUser is DonorInstituition) {
+    //     return RoutePathsHelper.donor;
+    //   } else if (appUser is ReceiverInstituition) {
+    //     return RoutePathsHelper.receiver;
+    //   } else if (appUser is Volunteer) {
+    //     return RoutePathsHelper.volunteer;
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
     // There's no need for a redirect at this point.
-    return null;
+    // return null;
   }
 
   List<RouteBase> get _routes => [
@@ -104,6 +107,36 @@ class RouterNotifier extends ChangeNotifier {
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
               child: MarketplaceEntityScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/VolunteerDashboard',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: VolunteerDashboard(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/CurrentOrder',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: CurrentOrder(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/History',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: History(),
             );
           },
         ),
