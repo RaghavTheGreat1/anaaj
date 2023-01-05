@@ -1,13 +1,14 @@
 import 'package:anaaj/models/food_item.dart';
 import 'package:anaaj/models/marketplace_entity.dart';
-import 'package:anaaj/models/order.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
+import 'package:anaaj/services/volunteer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../models/order.dart';
 import '../../../../widgets/buttons/cupertino_back_button.dart';
 import 'screens/marketplace_screen/widgets/food_item_card.dart';
 
@@ -166,11 +167,15 @@ class MarketplaceEntityScreen extends StatelessWidget {
                   return SizedBox();
                 } else {
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       final receiver = ref.watch(appUserProvider)!.appUser
                           as ReceiverInstituition;
+                      final availableVolunteer = await VolunteerService.instance
+                          .fetchAvailableVolunteer();
+
                       Order order = Order.raw(
                         entity.donorInstituition,
+                        availableVolunteer,
                         receiver,
                       );
                       order = order.copyWith(foodItems: items);

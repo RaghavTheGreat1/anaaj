@@ -12,6 +12,7 @@ _$_Volunteer _$$_VolunteerFromJson(Map<String, dynamic> json) => _$_Volunteer(
       phoneNumber: json['phoneNumber'] as int,
       emailAddress: json['emailAddress'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      isAvailable: json['isAvailable'] as bool,
     );
 
 Map<String, dynamic> _$$_VolunteerToJson(_$_Volunteer instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$_VolunteerToJson(_$_Volunteer instance) =>
       'phoneNumber': instance.phoneNumber,
       'emailAddress': instance.emailAddress,
       'address': instance.address.toJson(),
+      'isAvailable': instance.isAvailable,
     };

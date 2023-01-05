@@ -25,6 +25,7 @@ mixin _$Volunteer {
   int get phoneNumber => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,8 @@ abstract class $VolunteerCopyWith<$Res> {
       String name,
       int phoneNumber,
       String emailAddress,
-      Address address});
+      Address address,
+      bool isAvailable});
 
   $AddressCopyWith<$Res> get address;
 }
@@ -65,6 +67,7 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
     Object? phoneNumber = null,
     Object? emailAddress = null,
     Object? address = null,
+    Object? isAvailable = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -87,6 +90,10 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -111,7 +118,8 @@ abstract class _$$_VolunteerCopyWith<$Res> implements $VolunteerCopyWith<$Res> {
       String name,
       int phoneNumber,
       String emailAddress,
-      Address address});
+      Address address,
+      bool isAvailable});
 
   @override
   $AddressCopyWith<$Res> get address;
@@ -133,6 +141,7 @@ class __$$_VolunteerCopyWithImpl<$Res>
     Object? phoneNumber = null,
     Object? emailAddress = null,
     Object? address = null,
+    Object? isAvailable = null,
   }) {
     return _then(_$_Volunteer(
       id: null == id
@@ -155,6 +164,10 @@ class __$$_VolunteerCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -167,7 +180,8 @@ class _$_Volunteer implements _Volunteer {
       required this.name,
       required this.phoneNumber,
       required this.emailAddress,
-      required this.address});
+      required this.address,
+      required this.isAvailable});
 
   factory _$_Volunteer.fromJson(Map<String, dynamic> json) =>
       _$$_VolunteerFromJson(json);
@@ -182,10 +196,12 @@ class _$_Volunteer implements _Volunteer {
   final String emailAddress;
   @override
   final Address address;
+  @override
+  final bool isAvailable;
 
   @override
   String toString() {
-    return 'Volunteer(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
+    return 'Volunteer(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, isAvailable: $isAvailable)';
   }
 
   @override
@@ -199,13 +215,15 @@ class _$_Volunteer implements _Volunteer {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.emailAddress, emailAddress) ||
                 other.emailAddress == emailAddress) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, phoneNumber, emailAddress, address);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, phoneNumber, emailAddress, address, isAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -227,7 +245,8 @@ abstract class _Volunteer implements Volunteer {
       required final String name,
       required final int phoneNumber,
       required final String emailAddress,
-      required final Address address}) = _$_Volunteer;
+      required final Address address,
+      required final bool isAvailable}) = _$_Volunteer;
 
   factory _Volunteer.fromJson(Map<String, dynamic> json) =
       _$_Volunteer.fromJson;
@@ -242,6 +261,8 @@ abstract class _Volunteer implements Volunteer {
   String get emailAddress;
   @override
   Address get address;
+  @override
+  bool get isAvailable;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteerCopyWith<_$_Volunteer> get copyWith =>

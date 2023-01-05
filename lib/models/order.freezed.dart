@@ -22,8 +22,10 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
 mixin _$Order {
   String get id => throw _privateConstructorUsedError;
   DonorInstituition get donorInstituition => throw _privateConstructorUsedError;
+  Volunteer get volunteer => throw _privateConstructorUsedError;
   ReceiverInstituition get receiverInstituition =>
       throw _privateConstructorUsedError;
+  DateTime get submissionDateTime => throw _privateConstructorUsedError;
   List<FoodItem> get foodItems => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,10 +41,13 @@ abstract class $OrderCopyWith<$Res> {
   $Res call(
       {String id,
       DonorInstituition donorInstituition,
+      Volunteer volunteer,
       ReceiverInstituition receiverInstituition,
+      DateTime submissionDateTime,
       List<FoodItem> foodItems});
 
   $DonorInstituitionCopyWith<$Res> get donorInstituition;
+  $VolunteerCopyWith<$Res> get volunteer;
   $ReceiverInstituitionCopyWith<$Res> get receiverInstituition;
 }
 
@@ -61,7 +66,9 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
   $Res call({
     Object? id = null,
     Object? donorInstituition = null,
+    Object? volunteer = null,
     Object? receiverInstituition = null,
+    Object? submissionDateTime = null,
     Object? foodItems = null,
   }) {
     return _then(_value.copyWith(
@@ -73,10 +80,18 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.donorInstituition
           : donorInstituition // ignore: cast_nullable_to_non_nullable
               as DonorInstituition,
+      volunteer: null == volunteer
+          ? _value.volunteer
+          : volunteer // ignore: cast_nullable_to_non_nullable
+              as Volunteer,
       receiverInstituition: null == receiverInstituition
           ? _value.receiverInstituition
           : receiverInstituition // ignore: cast_nullable_to_non_nullable
               as ReceiverInstituition,
+      submissionDateTime: null == submissionDateTime
+          ? _value.submissionDateTime
+          : submissionDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       foodItems: null == foodItems
           ? _value.foodItems
           : foodItems // ignore: cast_nullable_to_non_nullable
@@ -89,6 +104,14 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
   $DonorInstituitionCopyWith<$Res> get donorInstituition {
     return $DonorInstituitionCopyWith<$Res>(_value.donorInstituition, (value) {
       return _then(_value.copyWith(donorInstituition: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $VolunteerCopyWith<$Res> get volunteer {
+    return $VolunteerCopyWith<$Res>(_value.volunteer, (value) {
+      return _then(_value.copyWith(volunteer: value) as $Val);
     });
   }
 
@@ -111,11 +134,15 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
   $Res call(
       {String id,
       DonorInstituition donorInstituition,
+      Volunteer volunteer,
       ReceiverInstituition receiverInstituition,
+      DateTime submissionDateTime,
       List<FoodItem> foodItems});
 
   @override
   $DonorInstituitionCopyWith<$Res> get donorInstituition;
+  @override
+  $VolunteerCopyWith<$Res> get volunteer;
   @override
   $ReceiverInstituitionCopyWith<$Res> get receiverInstituition;
 }
@@ -131,7 +158,9 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
   $Res call({
     Object? id = null,
     Object? donorInstituition = null,
+    Object? volunteer = null,
     Object? receiverInstituition = null,
+    Object? submissionDateTime = null,
     Object? foodItems = null,
   }) {
     return _then(_$_Order(
@@ -143,10 +172,18 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
           ? _value.donorInstituition
           : donorInstituition // ignore: cast_nullable_to_non_nullable
               as DonorInstituition,
+      volunteer: null == volunteer
+          ? _value.volunteer
+          : volunteer // ignore: cast_nullable_to_non_nullable
+              as Volunteer,
       receiverInstituition: null == receiverInstituition
           ? _value.receiverInstituition
           : receiverInstituition // ignore: cast_nullable_to_non_nullable
               as ReceiverInstituition,
+      submissionDateTime: null == submissionDateTime
+          ? _value.submissionDateTime
+          : submissionDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       foodItems: null == foodItems
           ? _value._foodItems
           : foodItems // ignore: cast_nullable_to_non_nullable
@@ -161,7 +198,9 @@ class _$_Order implements _Order {
   const _$_Order(
       {required this.id,
       required this.donorInstituition,
+      required this.volunteer,
       required this.receiverInstituition,
+      required this.submissionDateTime,
       required final List<FoodItem> foodItems})
       : _foodItems = foodItems;
 
@@ -173,7 +212,11 @@ class _$_Order implements _Order {
   @override
   final DonorInstituition donorInstituition;
   @override
+  final Volunteer volunteer;
+  @override
   final ReceiverInstituition receiverInstituition;
+  @override
+  final DateTime submissionDateTime;
   final List<FoodItem> _foodItems;
   @override
   List<FoodItem> get foodItems {
@@ -184,7 +227,7 @@ class _$_Order implements _Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, donorInstituition: $donorInstituition, receiverInstituition: $receiverInstituition, foodItems: $foodItems)';
+    return 'Order(id: $id, donorInstituition: $donorInstituition, volunteer: $volunteer, receiverInstituition: $receiverInstituition, submissionDateTime: $submissionDateTime, foodItems: $foodItems)';
   }
 
   @override
@@ -195,16 +238,26 @@ class _$_Order implements _Order {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.donorInstituition, donorInstituition) ||
                 other.donorInstituition == donorInstituition) &&
+            (identical(other.volunteer, volunteer) ||
+                other.volunteer == volunteer) &&
             (identical(other.receiverInstituition, receiverInstituition) ||
                 other.receiverInstituition == receiverInstituition) &&
+            (identical(other.submissionDateTime, submissionDateTime) ||
+                other.submissionDateTime == submissionDateTime) &&
             const DeepCollectionEquality()
                 .equals(other._foodItems, _foodItems));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, donorInstituition,
-      receiverInstituition, const DeepCollectionEquality().hash(_foodItems));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      donorInstituition,
+      volunteer,
+      receiverInstituition,
+      submissionDateTime,
+      const DeepCollectionEquality().hash(_foodItems));
 
   @JsonKey(ignore: true)
   @override
@@ -224,7 +277,9 @@ abstract class _Order implements Order {
   const factory _Order(
       {required final String id,
       required final DonorInstituition donorInstituition,
+      required final Volunteer volunteer,
       required final ReceiverInstituition receiverInstituition,
+      required final DateTime submissionDateTime,
       required final List<FoodItem> foodItems}) = _$_Order;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
@@ -234,7 +289,11 @@ abstract class _Order implements Order {
   @override
   DonorInstituition get donorInstituition;
   @override
+  Volunteer get volunteer;
+  @override
   ReceiverInstituition get receiverInstituition;
+  @override
+  DateTime get submissionDateTime;
   @override
   List<FoodItem> get foodItems;
   @override

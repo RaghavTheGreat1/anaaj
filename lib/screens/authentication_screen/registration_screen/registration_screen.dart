@@ -331,6 +331,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
           phoneNumber: phoneNumber,
           emailAddress: emailAddress,
           address: address,
+          isAvailable: true,
         );
         await auth.createVolunteer(
           volunteer,
