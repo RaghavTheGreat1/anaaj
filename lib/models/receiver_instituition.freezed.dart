@@ -25,6 +25,8 @@ mixin _$ReceiverInstituition {
   int get phoneNumber => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
+  String? get fcmToken => throw _privateConstructorUsedError;
+  bool get acceptingOrders => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +45,9 @@ abstract class $ReceiverInstituitionCopyWith<$Res> {
       String name,
       int phoneNumber,
       String emailAddress,
-      Address address});
+      Address address,
+      String? fcmToken,
+      bool acceptingOrders});
 
   $AddressCopyWith<$Res> get address;
 }
@@ -67,6 +71,8 @@ class _$ReceiverInstituitionCopyWithImpl<$Res,
     Object? phoneNumber = null,
     Object? emailAddress = null,
     Object? address = null,
+    Object? fcmToken = freezed,
+    Object? acceptingOrders = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -89,6 +95,14 @@ class _$ReceiverInstituitionCopyWithImpl<$Res,
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      acceptingOrders: null == acceptingOrders
+          ? _value.acceptingOrders
+          : acceptingOrders // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -114,7 +128,9 @@ abstract class _$$_ReceiverInstituitionCopyWith<$Res>
       String name,
       int phoneNumber,
       String emailAddress,
-      Address address});
+      Address address,
+      String? fcmToken,
+      bool acceptingOrders});
 
   @override
   $AddressCopyWith<$Res> get address;
@@ -136,6 +152,8 @@ class __$$_ReceiverInstituitionCopyWithImpl<$Res>
     Object? phoneNumber = null,
     Object? emailAddress = null,
     Object? address = null,
+    Object? fcmToken = freezed,
+    Object? acceptingOrders = null,
   }) {
     return _then(_$_ReceiverInstituition(
       id: null == id
@@ -158,6 +176,14 @@ class __$$_ReceiverInstituitionCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      acceptingOrders: null == acceptingOrders
+          ? _value.acceptingOrders
+          : acceptingOrders // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -170,7 +196,9 @@ class _$_ReceiverInstituition implements _ReceiverInstituition {
       required this.name,
       required this.phoneNumber,
       required this.emailAddress,
-      required this.address});
+      required this.address,
+      required this.fcmToken,
+      required this.acceptingOrders});
 
   factory _$_ReceiverInstituition.fromJson(Map<String, dynamic> json) =>
       _$$_ReceiverInstituitionFromJson(json);
@@ -185,10 +213,14 @@ class _$_ReceiverInstituition implements _ReceiverInstituition {
   final String emailAddress;
   @override
   final Address address;
+  @override
+  final String? fcmToken;
+  @override
+  final bool acceptingOrders;
 
   @override
   String toString() {
-    return 'ReceiverInstituition(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
+    return 'ReceiverInstituition(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, fcmToken: $fcmToken, acceptingOrders: $acceptingOrders)';
   }
 
   @override
@@ -202,13 +234,17 @@ class _$_ReceiverInstituition implements _ReceiverInstituition {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.emailAddress, emailAddress) ||
                 other.emailAddress == emailAddress) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken) &&
+            (identical(other.acceptingOrders, acceptingOrders) ||
+                other.acceptingOrders == acceptingOrders));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, phoneNumber, emailAddress, address);
+  int get hashCode => Object.hash(runtimeType, id, name, phoneNumber,
+      emailAddress, address, fcmToken, acceptingOrders);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +267,9 @@ abstract class _ReceiverInstituition implements ReceiverInstituition {
       required final String name,
       required final int phoneNumber,
       required final String emailAddress,
-      required final Address address}) = _$_ReceiverInstituition;
+      required final Address address,
+      required final String? fcmToken,
+      required final bool acceptingOrders}) = _$_ReceiverInstituition;
 
   factory _ReceiverInstituition.fromJson(Map<String, dynamic> json) =
       _$_ReceiverInstituition.fromJson;
@@ -246,6 +284,10 @@ abstract class _ReceiverInstituition implements ReceiverInstituition {
   String get emailAddress;
   @override
   Address get address;
+  @override
+  String? get fcmToken;
+  @override
+  bool get acceptingOrders;
   @override
   @JsonKey(ignore: true)
   _$$_ReceiverInstituitionCopyWith<_$_ReceiverInstituition> get copyWith =>

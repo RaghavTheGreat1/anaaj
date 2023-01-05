@@ -14,6 +14,8 @@ _$_ReceiverInstituition _$$_ReceiverInstituitionFromJson(
       phoneNumber: json['phoneNumber'] as int,
       emailAddress: json['emailAddress'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      fcmToken: json['fcmToken'] as String?,
+      acceptingOrders: json['acceptingOrders'] as bool,
     );
 
 Map<String, dynamic> _$$_ReceiverInstituitionToJson(
@@ -24,4 +26,6 @@ Map<String, dynamic> _$$_ReceiverInstituitionToJson(
       'phoneNumber': instance.phoneNumber,
       'emailAddress': instance.emailAddress,
       'address': instance.address.toJson(),
+      'fcmToken': instance.fcmToken,
+      'acceptingOrders': instance.acceptingOrders,
     };

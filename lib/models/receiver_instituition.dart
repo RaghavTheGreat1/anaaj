@@ -12,6 +12,8 @@ class ReceiverInstituition with _$ReceiverInstituition {
     required int phoneNumber,
     required String emailAddress,
     required Address address,
+    required String? fcmToken,
+    required bool acceptingOrders,
   }) = _ReceiverInstituition;
 
   factory ReceiverInstituition.fromJson(Map<String, dynamic> json) =>

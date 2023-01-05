@@ -1,5 +1,8 @@
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:uuid/uuid.dart';
+
+import 'food_item.dart';
 
 import 'food_item.dart';
 
@@ -18,4 +21,15 @@ class MarketplaceEntity with _$MarketplaceEntity {
 
   factory MarketplaceEntity.fromJson(Map<String, dynamic> json) =>
       _$MarketplaceEntityFromJson(json);
+
+  factory MarketplaceEntity.raw(DonorInstituition donorInstituition) {
+    Uuid uuid = Uuid();
+    return MarketplaceEntity(
+      id: uuid.v1(),
+      donorInstituition: donorInstituition,
+      foodItems: [],
+      isOpen: true,
+      isListed: true,
+    );
+  }
 }

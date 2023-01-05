@@ -1,8 +1,5 @@
 import 'package:anaaj/models/app_user.dart';
-import 'package:anaaj/models/donor_instituition.dart';
-import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/role.dart';
-import 'package:anaaj/models/volunteer.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/screens/authentication_screen/registration_screen/registration_screen.dart';
@@ -14,6 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
+import '../models/donor_instituition.dart';
+import '../models/receiver_instituition.dart';
+import '../models/volunteer.dart';
 import '../screens/authentication_screen/authentication_screen.dart';
 import '../screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';

@@ -309,6 +309,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
   void registerUser(PhoneAuthCredential phoneAuthCredential) async {
     Navigator.pop(context);
     AuthenticationServices auth = AuthenticationServices();
+    final fcmToken = ref.read(fcmTokenProvider);
     switch (widget.role) {
       case Role.donor:
         DonorInstituition donor = DonorInstituition(
@@ -332,10 +333,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
           phoneNumber: phoneNumber,
           emailAddress: emailAddress,
           address: address,
-          fcmToken: ref.read(fcmTokenProvider),
+          fcmToken: fcmToken,
         );
-        print("phone credential");
-        print(phoneAuthCredential);
         await auth.createVolunteer(
           volunteer,
           phoneAuthCredential,
@@ -350,6 +349,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
           phoneNumber: phoneNumber,
           emailAddress: emailAddress,
           address: address,
+          fcmToken: fcmToken,
+          acceptingOrders: true,
         );
         await auth.createReceiverInstituition(
           recevier,

@@ -1,4 +1,6 @@
-import 'package:anaaj/providers/cart_provider.dart';
+import 'package:anaaj/models/marketplace_entity.dart';
+import 'package:anaaj/screens/donor/providers/marketplace_entity_provider.dart';
+import 'package:anaaj/screens/donor/services/donor_marketplace_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,7 +10,7 @@ import '../../../../../widgets/buttons/loader_button.dart';
 import '../../../../../widgets/textfields/custom_text_form_field.dart';
 import 'diet_type_selector.dart';
 
-class AddFoodItemMenu extends ConsumerWidget {
+class AddFoodItemMenu extends HookConsumerWidget {
   const AddFoodItemMenu({
     Key? key,
   }) : super(key: key);
@@ -86,9 +88,12 @@ class AddFoodItemMenu extends ConsumerWidget {
                     child: LoaderButton(
                       label: Text('done'),
                       onPressed: () async {
-                        ref.read(cartProvider).add(foodItem);
-                        print("added to cart");
-                        //TODO: Implement add food
+                        MarketplaceEntity entity =
+                            ref.read(marketplaceEntityProvider)!;
+                        DonorMarketplaceService service =
+                            DonorMarketplaceService(marketplaceEntity: entity);
+                        await service.addFoodItem(foodItem);
+                        Navigator.pop(context);
                       },
                     ),
                   ),
