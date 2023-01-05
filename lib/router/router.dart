@@ -12,12 +12,13 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../models/donor_instituition.dart';
+import '../models/marketplace_entity.dart';
 import '../models/receiver_instituition.dart';
 import '../models/volunteer.dart';
 import '../screens/authentication_screen/authentication_screen.dart';
 import '../screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
-import '../screens/receiver/home_screen/marketplace_screen.dart';
+import '../screens/receiver/home_screen/receiver_bottom_navigation_screen.dart';
 import '../screens/receiver/home_screen/screens/marketplace_entity_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
@@ -151,7 +152,7 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: MarketPlaceScreen(),
+              child: ReceiverBottomNaviagationScreen(),
             );
           },
           routes: [
@@ -161,7 +162,7 @@ class RouterNotifier extends ChangeNotifier {
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
-                  child: MarketPlaceScreen(),
+                  child: ReceiverBottomNaviagationScreen(),
                 );
               },
               routes: [
@@ -171,7 +172,9 @@ class RouterNotifier extends ChangeNotifier {
                     return CustomTransitionPage(
                       key: state.pageKey,
                       transitionsBuilder: rightToLeftFadeTransition,
-                      child: MarketplaceEntityScreen(),
+                      child: MarketplaceEntityScreen(
+                        entity: state.extra! as MarketplaceEntity,
+                      ),
                     );
                   },
                 ),

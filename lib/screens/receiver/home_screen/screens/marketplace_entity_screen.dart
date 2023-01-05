@@ -1,14 +1,14 @@
+import 'package:anaaj/models/marketplace_entity.dart';
 import 'package:flutter/material.dart';
 
-class MarketplaceEntityScreen extends StatefulWidget {
-  const MarketplaceEntityScreen({super.key});
+class MarketplaceEntityScreen extends StatelessWidget {
+  const MarketplaceEntityScreen({
+    super.key,
+    required this.entity,
+  });
 
-  @override
-  State<MarketplaceEntityScreen> createState() =>
-      _MarketplaceEntityScreenState();
-}
+  final MarketplaceEntity entity;
 
-class _MarketplaceEntityScreenState extends State<MarketplaceEntityScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
