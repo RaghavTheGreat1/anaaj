@@ -23,6 +23,10 @@ class AppInitializerService {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    await FirebaseAuth.instance.setSettings(
+      forceRecaptchaFlow: false,
+      appVerificationDisabledForTesting: true,
+    );
 
     await Hive.initFlutter();
     await _configureSystem();

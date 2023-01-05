@@ -68,9 +68,14 @@ class DonorHomeScreen extends StatelessWidget {
                                   HookConsumer(
                                     builder: (context, ref, _) {
                                       return CupertinoSwitch(
-                                        value: ref
-                                            .watch(marketplaceEntityProvider)!
-                                            .isListed,
+                                        value: ref.watch(
+                                                    marketplaceEntityProvider) !=
+                                                null
+                                            ? ref
+                                                .watch(
+                                                    marketplaceEntityProvider)!
+                                                .isListed
+                                            : false,
                                         onChanged: (value) async {
                                           MarketplaceEntity entity = ref
                                               .read(marketplaceEntityProvider)!;
@@ -105,9 +110,14 @@ class DonorHomeScreen extends StatelessWidget {
                                   HookConsumer(
                                     builder: (context, ref, _) {
                                       return CupertinoSwitch(
-                                        value: ref
-                                            .watch(marketplaceEntityProvider)!
-                                            .isOpen,
+                                        value: ref.watch(
+                                                    marketplaceEntityProvider) !=
+                                                null
+                                            ? ref
+                                                .watch(
+                                                    marketplaceEntityProvider)!
+                                                .isOpen
+                                            : false,
                                         onChanged: (value) async {
                                           MarketplaceEntity entity = ref
                                               .read(marketplaceEntityProvider)!;

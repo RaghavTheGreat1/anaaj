@@ -18,8 +18,8 @@ import '../models/volunteer.dart';
 import '../screens/authentication_screen/authentication_screen.dart';
 import '../screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
-import '../screens/receiver/screens/receiver_bottom_navigation_screen.dart';
 import '../screens/receiver/screens/home_screen/marketplace_entity_screen.dart';
+import '../screens/receiver/screens/receiver_bottom_navigation_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
@@ -152,33 +152,21 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: ReceiverBottomNaviagationScreen(),
+              child: ReceiverBottomNavigationScreen(),
             );
           },
           routes: [
             GoRoute(
-              path: 'marketplace',
+              path: 'entity',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
-                  child: ReceiverBottomNaviagationScreen(),
+                  child: MarketplaceEntityScreen(
+                    entity: state.extra! as MarketplaceEntity,
+                  ),
                 );
               },
-              routes: [
-                GoRoute(
-                  path: 'entity',
-                  pageBuilder: (context, state) {
-                    return CustomTransitionPage(
-                      key: state.pageKey,
-                      transitionsBuilder: rightToLeftFadeTransition,
-                      child: MarketplaceEntityScreen(
-                        entity: state.extra! as MarketplaceEntity,
-                      ),
-                    );
-                  },
-                ),
-              ],
             ),
           ],
         ),

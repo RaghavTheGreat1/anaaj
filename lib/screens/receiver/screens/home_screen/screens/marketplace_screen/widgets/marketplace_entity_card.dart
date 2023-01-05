@@ -1,4 +1,5 @@
 import 'package:anaaj/models/marketplace_entity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,7 +18,7 @@ class MarketplaceEntityCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           context.go(
-            '/receiver/marketplace/entity/',
+            '/receiver/entity/',
             extra: marketplaceEntity,
           );
         },

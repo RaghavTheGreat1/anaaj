@@ -34,7 +34,6 @@ dependencies:
   cloud_firestore: ^4.3.0
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
-  feather_icons_flutter: ^4.7.4
   firebase_auth: ^4.2.3
   firebase_core: ^2.4.0
   firebase_messaging: ^14.2.0
