@@ -1,5 +1,7 @@
 import 'package:anaaj/models/app_user.dart';
 import 'package:anaaj/services/authentication_services.dart';
+// remove after testing with emulator
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,9 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// remove after testing with emulator
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 
 import '../firebase_options.dart';
@@ -39,8 +38,8 @@ class AppInitializerService {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    auth.useAuthEmulator("192.168.214.49", 8081);
-    firestore.useFirestoreEmulator("192.168.214.49", 8081);
+    auth.useAuthEmulator("192.168.107.139", 8081);
+    firestore.useFirestoreEmulator("192.168.107.139", 9099);
 
     // await FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
     // FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);
