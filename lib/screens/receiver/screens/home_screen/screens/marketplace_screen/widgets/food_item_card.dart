@@ -1,4 +1,6 @@
+import 'package:anaaj/models/diet_type.dart';
 import 'package:anaaj/widgets/tile_layout.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -9,15 +11,15 @@ class FoodItemCard extends StatelessWidget {
   const FoodItemCard({
     Key? key,
     required this.foodItem,
-    required this.foodImage,
   }) : super(key: key);
 
   final FoodItem foodItem;
 
-  final String foodImage;
-
   @override
   Widget build(BuildContext context) {
+    final foodImage = Faker().image.image(
+      keywords: ['food', 'dish', 'cuisine'],
+    );
     final theme = Theme.of(context);
     return Card(
       elevation: 0,
@@ -26,9 +28,8 @@ class FoodItemCard extends StatelessWidget {
       ),
       surfaceTintColor: Colors.white,
       child: TileLayout(
-        onTap: () {},
         listTile: SizedBox(
-          height: 108,
+          height: 124,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -45,11 +46,20 @@ class FoodItemCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              foodItem.name,
-                              style: theme.textTheme.titleMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  foodItem.name,
+                                  style: theme.textTheme.titleMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  foodItem.dietType.displayName,
+                                  style: theme.textTheme.labelMedium!.copyWith(),
+                                ),
+                              ],
                             ),
                             HookConsumer(
                               builder: (context, ref, _) {

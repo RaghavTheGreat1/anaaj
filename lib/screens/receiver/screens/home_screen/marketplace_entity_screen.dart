@@ -3,8 +3,8 @@ import 'package:anaaj/models/marketplace_entity.dart';
 import 'package:anaaj/models/order.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -142,12 +142,9 @@ class MarketplaceEntityScreen extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final foodItem = entity.foodItems[index];
-                    final foodImage = Faker().image.image(
-                      keywords: ['food', 'dish', 'cuisine'],
-                    );
+
                     return FoodItemCard(
                       foodItem: foodItem,
-                      foodImage: foodImage,
                     );
                   },
                   childCount: entity.foodItems.length,
@@ -177,7 +174,11 @@ class MarketplaceEntityScreen extends StatelessWidget {
                         receiver,
                       );
                       order = order.copyWith(foodItems: items);
-                      //TODO: Order Page
+
+                      context.push(
+                        '/receiver/entity/order/review/',
+                        extra: order,
+                      );
                     },
                     child: Container(
                       color: Colors.white,
