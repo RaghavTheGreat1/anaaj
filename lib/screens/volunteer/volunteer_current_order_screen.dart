@@ -1,14 +1,16 @@
 import 'package:anaaj/widgets/snackbars/show_successful_snackbar.dart';
 import 'package:flutter/material.dart';
 
-class CurrentOrderScreen extends StatefulWidget {
-  const CurrentOrderScreen({super.key});
+class VolunteerCurrentOrderScreen extends StatefulWidget {
+  const VolunteerCurrentOrderScreen({super.key});
 
   @override
-  State<CurrentOrderScreen> createState() => _CurrentOrderScreenState();
+  State<VolunteerCurrentOrderScreen> createState() =>
+      _VolunteerCurrentOrderScreenState();
 }
 
-class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
+class _VolunteerCurrentOrderScreenState
+    extends State<VolunteerCurrentOrderScreen> {
   DateTime _deliveryTime = DateTime.now();
   String _food = 'Rice and sambar and rasam';
   String _location = 'jayanagar 9th block';

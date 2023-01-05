@@ -1,7 +1,7 @@
 import 'package:anaaj/models/marketplace_entity.dart';
 import 'package:flutter/material.dart';
 
-import 'marketplace_screen/widgets/marketplace_entity_card.dart';
+import 'screens/marketplace_screen/widgets/marketplace_entity_card.dart';
 
 class MarketplaceEntityScreen extends StatelessWidget {
   const MarketplaceEntityScreen({

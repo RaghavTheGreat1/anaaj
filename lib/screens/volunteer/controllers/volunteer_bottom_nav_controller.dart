@@ -1,12 +1,13 @@
-import 'package:anaaj/screens/donor/screens/home_screen/donor_home_screen.dart';
-import 'package:anaaj/screens/donor/screens/menu_screen/donor_menu_screen.dart';
-import 'package:anaaj/screens/donor/screens/more_screen/donor_more_screen.dart';
+import 'package:anaaj/screens/volunteer/more_screen/volunteer_more_screen.dart';
+import 'package:anaaj/screens/volunteer/volunteer_current_order_screen.dart';
+import 'package:anaaj/screens/volunteer/volunteer_order_history_screen.dart';
 import 'package:flutter/material.dart';
 
-class DonorBottomNavController {
-  DonorBottomNavController._();
+class VolunteerBottomNavController {
+  VolunteerBottomNavController._();
 
-  static DonorBottomNavController instance = DonorBottomNavController._();
+  static VolunteerBottomNavController instance =
+      VolunteerBottomNavController._();
 
   PageController _controller = PageController(
     initialPage: 0,
@@ -35,9 +36,9 @@ class DonorBottomNavController {
         ),
         NavigationDestination(
           icon: Icon(
-            Icons.food_bank_outlined,
+            Icons.history_rounded,
           ),
-          label: "Menu",
+          label: "Order History",
         ),
         NavigationDestination(
           icon: Icon(
@@ -48,8 +49,8 @@ class DonorBottomNavController {
       ];
 
   List<Widget> get destinations => [
-        DonorHomeScreen(),
-        DonorMenuScreen(),
-        DonorMoreScreen(),
+        VolunteerCurrentOrderScreen(),
+        VolunteerOrderHistoryScreen(),
+        VolunteerMoreScreen(),
       ];
 }

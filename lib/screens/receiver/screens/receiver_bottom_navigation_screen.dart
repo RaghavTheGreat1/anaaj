@@ -1,22 +1,27 @@
+import 'package:anaaj/models/donor_instituition.dart';
+import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/screens/donor/controllers/donor_bottom_nav_controller.dart';
+import 'package:anaaj/screens/donor/providers/marketplace_entitiy_stream_provider.dart';
+import 'package:anaaj/screens/donor/providers/marketplace_entity_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'controllers/volunteer_bottom_nav_controller.dart';
+import '../controllers/receiver_bottom_nav_controller.dart';
 
 /// Screen having bottom navigation bar for authUser: Donor
-class VolunteerBottomNavigationScreen extends StatefulWidget {
-  const VolunteerBottomNavigationScreen({
+class ReceiverBottomNavigationScreen extends StatefulWidget {
+  const ReceiverBottomNavigationScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<VolunteerBottomNavigationScreen> createState() =>
-      _VolunteerBottomNavigationScreenState();
+  State<ReceiverBottomNavigationScreen> createState() =>
+      _ReceiverBottomNavigationScreenState();
 }
 
-class _VolunteerBottomNavigationScreenState
-    extends State<VolunteerBottomNavigationScreen> {
+class _ReceiverBottomNavigationScreenState
+    extends State<ReceiverBottomNavigationScreen> {
   late ValueNotifier<int> currentIndex;
 
   @override
@@ -24,15 +29,15 @@ class _VolunteerBottomNavigationScreenState
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         destinations:
-            VolunteerBottomNavController.instance.navigationDestinations,
+            ReceiverBottomNavController.instance.navigationDestinations,
         onDestinationSelected: (value) {
-          VolunteerBottomNavController.instance.index = value;
+          ReceiverBottomNavController.instance.index = value;
         },
       ),
       body: PageView(
-        controller: VolunteerBottomNavController.instance.controller,
+        controller: ReceiverBottomNavController.instance.controller,
         physics: const NeverScrollableScrollPhysics(),
-        children: VolunteerBottomNavController.instance.destinations,
+        children: ReceiverBottomNavController.instance.destinations,
       ),
     );
   }

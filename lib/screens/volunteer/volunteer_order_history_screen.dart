@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class VolunteerOrderHistoryScreen extends StatefulWidget {
+  const VolunteerOrderHistoryScreen({super.key});
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<VolunteerOrderHistoryScreen> createState() => _VolunteerOrderHistoryScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _VolunteerOrderHistoryScreenState extends State<VolunteerOrderHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

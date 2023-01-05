@@ -1,12 +1,15 @@
 import 'package:anaaj/screens/donor/screens/home_screen/donor_home_screen.dart';
 import 'package:anaaj/screens/donor/screens/menu_screen/donor_menu_screen.dart';
 import 'package:anaaj/screens/donor/screens/more_screen/donor_more_screen.dart';
+import 'package:anaaj/screens/receiver/screens/home_screen/screens/marketplace_screen/marketplace_screen.dart';
 import 'package:flutter/material.dart';
 
-class DonorBottomNavController {
-  DonorBottomNavController._();
+import '../screens/more_screen/receiver_more_screen.dart';
 
-  static DonorBottomNavController instance = DonorBottomNavController._();
+class ReceiverBottomNavController {
+  ReceiverBottomNavController._();
+
+  static ReceiverBottomNavController instance = ReceiverBottomNavController._();
 
   PageController _controller = PageController(
     initialPage: 0,
@@ -31,13 +34,7 @@ class DonorBottomNavController {
   List<NavigationDestination> get navigationDestinations => [
         NavigationDestination(
           icon: Icon(Icons.dashboard),
-          label: "Dashboard",
-        ),
-        NavigationDestination(
-          icon: Icon(
-            Icons.food_bank_outlined,
-          ),
-          label: "Menu",
+          label: "Marketplace",
         ),
         NavigationDestination(
           icon: Icon(
@@ -48,8 +45,7 @@ class DonorBottomNavController {
       ];
 
   List<Widget> get destinations => [
-        DonorHomeScreen(),
-        DonorMenuScreen(),
-        DonorMoreScreen(),
+        ReceiverMarketplaceScreen(),
+        ReceiverMoreScreen(),
       ];
 }
