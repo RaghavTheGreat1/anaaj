@@ -29,7 +29,10 @@ class MarketplaceEntityCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(17.0),
           ),
           child: Card(
-            elevation: 2,
+            elevation: 1,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(17.0),
+            ),
             surfaceTintColor: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +92,6 @@ class MarketplaceEntityCard extends StatelessWidget {
                                     marketplaceEntity
                                         .donorInstituition.phoneNumber
                                         .toString(),
-                              
                               );
                               await launchUrl(openDialer);
                             },
