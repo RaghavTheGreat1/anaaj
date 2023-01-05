@@ -1,7 +1,9 @@
 import 'package:anaaj/models/diet_type.dart';
 import 'package:anaaj/models/order.dart';
+import 'package:anaaj/screens/receiver/services/order_services.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../models/food_item.dart';
@@ -153,8 +155,7 @@ class RecevierOrderReviewScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          order.volunteer.address
-                                              .streetAddress,
+                                          order.volunteer.address.streetAddress,
                                           style: theme.textTheme.labelLarge,
                                         ),
                                         Text(
@@ -176,8 +177,7 @@ class RecevierOrderReviewScreen extends StatelessWidget {
                                             final Uri openDialer = Uri(
                                               scheme: 'tel',
                                               path: "+91" +
-                                                  order.volunteer
-                                                      .phoneNumber
+                                                  order.volunteer.phoneNumber
                                                       .toString(),
                                             );
                                             await launchUrl(openDialer);
@@ -189,8 +189,8 @@ class RecevierOrderReviewScreen extends StatelessWidget {
                                           onPressed: () async {
                                             final Uri emailLaunchUri = Uri(
                                               scheme: 'mailto',
-                                              path: order.volunteer
-                                                  .emailAddress,
+                                              path:
+                                                  order.volunteer.emailAddress,
                                             );
                                             await launchUrl(emailLaunchUri);
                                           },
@@ -354,9 +354,12 @@ class RecevierOrderReviewScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 //TODO: PLACE ORDER
+                //TODO: DOCUMENT ID SHOULD BE ORDER ID
                 // TODO: Busy Volunteer
+                await OrderServices().placeOrder(order);
+                context.go('/receiver/');
               },
               child: Container(
                 color: Colors.white,

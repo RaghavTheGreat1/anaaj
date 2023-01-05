@@ -5,7 +5,7 @@ class LightTheme {
   ThemeData getTheme() {
     final colorScheme =
         ColorScheme.fromSeed(seedColor: Colors.deepOrange[300]!).copyWith(
-      primary: Colors.deepOrange[300],
+      primary: Colors.deepOrange[400],
     );
     return ThemeData(
       brightness: Brightness.light,
@@ -15,7 +15,7 @@ class LightTheme {
       textTheme: GoogleFonts.nunitoTextTheme(),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          elevation: MaterialStatePropertyAll(0 ),
+          elevation: MaterialStatePropertyAll(0),
           backgroundColor: MaterialStatePropertyAll(colorScheme.primary),
           foregroundColor: MaterialStatePropertyAll(colorScheme.onPrimary),
         ),

@@ -20,7 +20,6 @@ class DonorBottomNavController {
 
   set index(int index) {
     _index = index;
-    print(index);
     controller.animateToPage(
       index,
       duration: Duration(milliseconds: 400),

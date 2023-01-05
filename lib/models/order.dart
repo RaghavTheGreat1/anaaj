@@ -1,4 +1,5 @@
 import 'package:anaaj/models/donor_instituition.dart';
+import 'package:anaaj/models/order_status.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/volunteer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,6 +16,7 @@ class Order with _$Order {
     required String id,
     required DonorInstituition donorInstituition,
     required Volunteer volunteer,
+    required OrderStatus orderStatus,
     required ReceiverInstituition receiverInstituition,
     required DateTime submissionDateTime,
     required List<FoodItem> foodItems,
@@ -28,6 +30,7 @@ class Order with _$Order {
     return Order(
       id: uuid.v1(),
       donorInstituition: donorInstituition,
+      orderStatus: OrderStatus.placed,
       submissionDateTime: DateTime.now(),
       volunteer: volunteer,
       receiverInstituition: receiverInstituition,

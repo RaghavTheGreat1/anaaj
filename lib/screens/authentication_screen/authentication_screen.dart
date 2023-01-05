@@ -40,7 +40,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 RoleSelector(
                   onChanged: (value) {
                     selectedRole = RoleExt.getRoleByIndex(value);
-                    print(selectedRole);
                   },
                 ),
                 SizedBox(
@@ -126,7 +125,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                           extra: selectedRole,
                         );
                       }
-                      print(user);
                     },
                     child: Text("submit"),
                   ),

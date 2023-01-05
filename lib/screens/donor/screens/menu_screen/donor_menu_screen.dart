@@ -22,60 +22,74 @@ class DonorMenuScreen extends HookConsumerWidget {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Row(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return AddFoodItemMenu();
+                            },
+                          );
+                        },
+                        child: Card(
+                          child: SizedBox.square(
+                            dimension: 48,
+                            child: Icon(
+                              Icons.food_bank_outlined,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Add\nFood',
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          MarketplaceEntity entity =
+                              ref.read(marketplaceEntityProvider)!;
+                          DonorMarketplaceService service =
+                              DonorMarketplaceService(
+                                  marketplaceEntity: entity);
+                          await service.deleteAllFoodItems();
+                        },
+                        child: Card(
+                          child: SizedBox.square(
+                            dimension: 48,
+                            child: Icon(
+                              Icons.food_bank_outlined,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Delete\nAll',
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return AddFoodItemMenu();
-                          },
-                        );
-                      },
-                      child: Card(
-                        child: SizedBox.square(
-                          dimension: 48,
-                          child: Icon(
-                            Icons.food_bank_outlined,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'Add\nFood',
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        MarketplaceEntity entity =
-                            ref.read(marketplaceEntityProvider)!;
-                        DonorMarketplaceService service =
-                            DonorMarketplaceService(marketplaceEntity: entity);
-                        await service.deleteAllFoodItems();
-                      },
-                      child: Card(
-                        child: SizedBox.square(
-                          dimension: 48,
-                          child: Icon(
-                            Icons.food_bank_outlined,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'Delete\nAll',
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
+                Divider(),
+                Text('M E N U'),
+                Divider(),
               ],
             ),
           ),

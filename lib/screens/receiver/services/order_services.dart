@@ -37,6 +37,19 @@ class OrderServices {
     return fetchedOrder.docs;
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> fetchOrdersStreamByReceiverId(
+      String id) {
+    final fetchedOrderSnapshots = FirebaseFirestore.instance
+        .collection(ordersCollectionPath)
+        .where(
+          'receiverInstituition.id',
+          isEqualTo: id,
+        )
+        .snapshots();
+
+    return fetchedOrderSnapshots;
+  }
+
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
       fetchOrdersByDonorId(String id) async {
     final fetchedOrder = await FirebaseFirestore.instance
@@ -48,5 +61,18 @@ class OrderServices {
         .get();
 
     return fetchedOrder.docs;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> fetchOrdersStreamByDonorId(
+      String id) {
+    final fetchedOrderSnapshots = FirebaseFirestore.instance
+        .collection(ordersCollectionPath)
+        .where(
+          'donorInstituition.id',
+          isEqualTo: id,
+        )
+        .snapshots();
+
+    return fetchedOrderSnapshots;
   }
 }

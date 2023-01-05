@@ -1,7 +1,5 @@
-import 'package:anaaj/screens/donor/screens/home_screen/donor_home_screen.dart';
-import 'package:anaaj/screens/donor/screens/menu_screen/donor_menu_screen.dart';
-import 'package:anaaj/screens/donor/screens/more_screen/donor_more_screen.dart';
 import 'package:anaaj/screens/receiver/screens/home_screen/screens/marketplace_screen/marketplace_screen.dart';
+import 'package:anaaj/screens/receiver/screens/order_history_screen/receiver_order_history_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/more_screen/receiver_more_screen.dart';
@@ -23,7 +21,6 @@ class ReceiverBottomNavController {
 
   set index(int index) {
     _index = index;
-    print(index);
     controller.animateToPage(
       index,
       duration: Duration(milliseconds: 400),
@@ -37,6 +34,10 @@ class ReceiverBottomNavController {
           label: "Marketplace",
         ),
         NavigationDestination(
+          icon: Icon(Icons.history_rounded),
+          label: "History",
+        ),
+        NavigationDestination(
           icon: Icon(
             Icons.more_horiz_outlined,
           ),
@@ -46,6 +47,7 @@ class ReceiverBottomNavController {
 
   List<Widget> get destinations => [
         ReceiverMarketplaceScreen(),
+        ReceiverOrderHistoryScreen(),
         ReceiverMoreScreen(),
       ];
 }

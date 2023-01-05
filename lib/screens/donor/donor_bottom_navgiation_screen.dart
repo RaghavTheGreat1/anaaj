@@ -75,14 +75,11 @@ class _BottomNavigationBarState extends ConsumerState<BottomNavigationBar> {
         .watch(marketplaceEntityStreamProvider(donor.phoneNumber.toString()))
         .when(
       data: (value) {
-        print('dataa');
-        print(value);
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           final rawData = value.data();
           if (rawData != null) {
             ref.read(marketplaceEntityProvider.notifier).state =
                 MarketplaceEntity.fromJson(Map.from(rawData));
-            print(ref.read(marketplaceEntityProvider));
           } else {
             MarketplaceEntity entity = MarketplaceEntity.raw(donor);
             await FirebaseFirestore.instance
