@@ -334,6 +334,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
           emailAddress: emailAddress,
           address: address,
           fcmToken: fcmToken,
+          isAvailable: true,
         );
         await auth.createVolunteer(
           volunteer,

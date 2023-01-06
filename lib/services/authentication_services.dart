@@ -38,6 +38,7 @@ class AuthenticationServices {
         phoneNumber: int.parse(phone_number ?? "0000"),
         emailAddress: "test@test.com",
         fcmToken: fcmToken,
+        isAvailable: true,
         address: Address(
             id: "",
             streetAddress: "bowee lane",

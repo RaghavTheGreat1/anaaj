@@ -1,9 +1,11 @@
 import 'package:anaaj/models/app_user.dart';
+import 'package:anaaj/models/order.dart';
 import 'package:anaaj/models/role.dart';
 import 'package:anaaj/providers/app_user_providers.dart';
 import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/screens/authentication_screen/registration_screen/registration_screen.dart';
 import 'package:anaaj/screens/donor/donor_bottom_navgiation_screen.dart';
+import 'package:anaaj/screens/receiver/screens/home_screen/screens/marketplace_screen/screens/receiver_order_review_screen.dart';
 import 'package:anaaj/screens/volunteer/volunteer_bottom_navigation_screen.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +20,8 @@ import '../models/volunteer.dart';
 import '../screens/authentication_screen/authentication_screen.dart';
 import '../screens/authentication_screen/screens/otp_verification_screen/otp_verification_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
-import '../screens/receiver/home_screen/receiver_bottom_navigation_screen.dart';
-import '../screens/receiver/home_screen/screens/marketplace_entity_screen.dart';
+import '../screens/receiver/screens/home_screen/marketplace_entity_screen.dart';
+import '../screens/receiver/screens/receiver_bottom_navigation_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
@@ -153,28 +155,30 @@ class RouterNotifier extends ChangeNotifier {
             return CustomTransitionPage(
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
-              child: ReceiverBottomNaviagationScreen(),
+              child: ReceiverBottomNavigationScreen(),
             );
           },
           routes: [
             GoRoute(
-              path: 'marketplace',
+              path: 'entity',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
                   transitionsBuilder: rightToLeftFadeTransition,
-                  child: ReceiverBottomNaviagationScreen(),
+                  child: MarketplaceEntityScreen(
+                    entity: state.extra! as MarketplaceEntity,
+                  ),
                 );
               },
               routes: [
                 GoRoute(
-                  path: 'entity',
+                  path: 'order/review',
                   pageBuilder: (context, state) {
                     return CustomTransitionPage(
                       key: state.pageKey,
                       transitionsBuilder: rightToLeftFadeTransition,
-                      child: MarketplaceEntityScreen(
-                        entity: state.extra! as MarketplaceEntity,
+                      child: RecevierOrderReviewScreen(
+                        order: state.extra! as Order,
                       ),
                     );
                   },

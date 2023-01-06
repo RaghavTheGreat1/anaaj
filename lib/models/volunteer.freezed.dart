@@ -26,6 +26,7 @@ mixin _$Volunteer {
   String get emailAddress => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
   String? get fcmToken => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $VolunteerCopyWith<$Res> {
       int phoneNumber,
       String emailAddress,
       Address address,
-      String? fcmToken});
+      String? fcmToken,
+      bool isAvailable});
 
   $AddressCopyWith<$Res> get address;
 }
@@ -68,6 +70,7 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
     Object? emailAddress = null,
     Object? address = null,
     Object? fcmToken = freezed,
+    Object? isAvailable = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -94,6 +97,10 @@ class _$VolunteerCopyWithImpl<$Res, $Val extends Volunteer>
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -119,7 +126,8 @@ abstract class _$$_VolunteerCopyWith<$Res> implements $VolunteerCopyWith<$Res> {
       int phoneNumber,
       String emailAddress,
       Address address,
-      String? fcmToken});
+      String? fcmToken,
+      bool isAvailable});
 
   @override
   $AddressCopyWith<$Res> get address;
@@ -142,6 +150,7 @@ class __$$_VolunteerCopyWithImpl<$Res>
     Object? emailAddress = null,
     Object? address = null,
     Object? fcmToken = freezed,
+    Object? isAvailable = null,
   }) {
     return _then(_$_Volunteer(
       id: null == id
@@ -168,6 +177,10 @@ class __$$_VolunteerCopyWithImpl<$Res>
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -181,7 +194,8 @@ class _$_Volunteer implements _Volunteer {
       required this.phoneNumber,
       required this.emailAddress,
       required this.address,
-      required this.fcmToken});
+      required this.fcmToken,
+      required this.isAvailable});
 
   factory _$_Volunteer.fromJson(Map<String, dynamic> json) =>
       _$$_VolunteerFromJson(json);
@@ -198,10 +212,12 @@ class _$_Volunteer implements _Volunteer {
   final Address address;
   @override
   final String? fcmToken;
+  @override
+  final bool isAvailable;
 
   @override
   String toString() {
-    return 'Volunteer(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, fcmToken: $fcmToken)';
+    return 'Volunteer(id: $id, name: $name, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, fcmToken: $fcmToken, isAvailable: $isAvailable)';
   }
 
   @override
@@ -217,13 +233,15 @@ class _$_Volunteer implements _Volunteer {
                 other.emailAddress == emailAddress) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.fcmToken, fcmToken) ||
-                other.fcmToken == fcmToken));
+                other.fcmToken == fcmToken) &&
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, phoneNumber, emailAddress, address, fcmToken);
+  int get hashCode => Object.hash(runtimeType, id, name, phoneNumber,
+      emailAddress, address, fcmToken, isAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -246,7 +264,8 @@ abstract class _Volunteer implements Volunteer {
       required final int phoneNumber,
       required final String emailAddress,
       required final Address address,
-      required final String? fcmToken}) = _$_Volunteer;
+      required final String? fcmToken,
+      required final bool isAvailable}) = _$_Volunteer;
 
   factory _Volunteer.fromJson(Map<String, dynamic> json) =
       _$_Volunteer.fromJson;
@@ -263,6 +282,8 @@ abstract class _Volunteer implements Volunteer {
   Address get address;
   @override
   String? get fcmToken;
+  @override
+  bool get isAvailable;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteerCopyWith<_$_Volunteer> get copyWith =>

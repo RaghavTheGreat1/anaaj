@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:anaaj/models/donor_instituition.dart';
 import 'package:anaaj/models/receiver_instituition.dart';
 import 'package:anaaj/models/role.dart';
@@ -8,7 +6,6 @@ import 'package:anaaj/router/route_paths_helper.dart';
 import 'package:anaaj/services/authentication_services.dart';
 import 'package:anaaj/widgets/role_selector.dart';
 import 'package:anaaj/widgets/textfields/custom_text_form_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -43,7 +40,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 RoleSelector(
                   onChanged: (value) {
                     selectedRole = RoleExt.getRoleByIndex(value);
-                    print(selectedRole);
                   },
                 ),
                 SizedBox(
@@ -129,8 +125,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                           extra: selectedRole,
                         );
                       }
-                      print("user");
-                      print(user);
                     },
                     child: Text("submit"),
                   ),

@@ -32,17 +32,15 @@ class AppInitializerService {
 
   Future<String?> initialize() async {
     await Firebase.initializeApp(
+      name: "anaaj",
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    auth.useAuthEmulator("192.168.107.139", 8081);
-    firestore.useFirestoreEmulator("192.168.107.139", 9099);
-
-    // await FirebaseAuth.instance.useAuthEmulator("192.168.214.49", 9099);
-    // FirebaseFirestore.instance.useFirestoreEmulator("192.168.214.49", 8081);
+    auth.useAuthEmulator("192.168.0.115", 9099);
+    firestore.useFirestoreEmulator("192.168.0.115", 8081);
 
     PermissionStatus permissionStatus =
         await NotificationPermissions.getNotificationPermissionStatus();
@@ -56,7 +54,6 @@ class AppInitializerService {
     await _configureSystem();
     await Hive.initFlutter();
     await verifyUser();
-    print("app init finished");
     return fcmToken;
   }
 

@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../models/marketplace_entity.dart';
 import '../../services/donor_marketplace_service.dart';
+import 'widgets/donor_orders_list.dart';
 
 class DonorHomeScreen extends StatelessWidget {
   const DonorHomeScreen({super.key});
@@ -49,110 +50,120 @@ class DonorHomeScreen extends StatelessWidget {
       ),
       body: CustomScrollView(
         slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(24.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Listing Status'),
-                                  HookConsumer(
-                                    builder: (context, ref, _) {
-                                      return CupertinoSwitch(
-                                        value: ref
-                                            .watch(marketplaceEntityProvider)!
-                                            .isListed,
-                                        onChanged: (value) async {
-                                          MarketplaceEntity entity = ref
-                                              .read(marketplaceEntityProvider)!;
-                                          DonorMarketplaceService service =
-                                              DonorMarketplaceService(
-                                                  marketplaceEntity: entity);
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Card(
+                              elevation: 0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Listing Status'),
+                                    HookConsumer(
+                                      builder: (context, ref, _) {
+                                        return CupertinoSwitch(
+                                          value: ref.watch(
+                                                      marketplaceEntityProvider) !=
+                                                  null
+                                              ? ref
+                                                  .watch(
+                                                      marketplaceEntityProvider)!
+                                                  .isListed
+                                              : false,
+                                          onChanged: (value) async {
+                                            MarketplaceEntity entity = ref.read(
+                                                marketplaceEntityProvider)!;
+                                            DonorMarketplaceService service =
+                                                DonorMarketplaceService(
+                                                    marketplaceEntity: entity);
 
-                                          await service
-                                              .updateListingStatus(value);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(24.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Institution Open'),
-                                  HookConsumer(
-                                    builder: (context, ref, _) {
-                                      return CupertinoSwitch(
-                                        value: ref
-                                            .watch(marketplaceEntityProvider)!
-                                            .isOpen,
-                                        onChanged: (value) async {
-                                          MarketplaceEntity entity = ref
-                                              .read(marketplaceEntityProvider)!;
-                                          DonorMarketplaceService service =
-                                              DonorMarketplaceService(
-                                                  marketplaceEntity: entity);
-
-                                          await service.updateStatus(value);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text("Quick Shortcuts"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Wrap(
-                      children: [
-                        Column(
-                          children: [
-                            Card(
-                              child: SizedBox.square(
-                                dimension: 48,
-                                child: Icon(
-                                  Icons.food_bank_outlined,
+                                            await service
+                                                .updateListingStatus(value);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            Text('Manage\nMenu')
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Card(
+                              elevation: 0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Institution Open'),
+                                    HookConsumer(
+                                      builder: (context, ref, _) {
+                                        return CupertinoSwitch(
+                                          value: ref.watch(
+                                                      marketplaceEntityProvider) !=
+                                                  null
+                                              ? ref
+                                                  .watch(
+                                                      marketplaceEntityProvider)!
+                                                  .isOpen
+                                              : false,
+                                          onChanged: (value) async {
+                                            MarketplaceEntity entity = ref.read(
+                                                marketplaceEntityProvider)!;
+                                            DonorMarketplaceService service =
+                                                DonorMarketplaceService(
+                                                    marketplaceEntity: entity);
+
+                                            await service.updateStatus(value);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 8.0,
+              ),
+              child: Text(
+                "Orders",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          DonorOrdersList(),
         ],
       ),
     );

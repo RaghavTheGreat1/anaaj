@@ -13,6 +13,7 @@ _$_Volunteer _$$_VolunteerFromJson(Map<String, dynamic> json) => _$_Volunteer(
       emailAddress: json['emailAddress'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       fcmToken: json['fcmToken'] as String?,
+      isAvailable: json['isAvailable'] as bool,
     );
 
 Map<String, dynamic> _$$_VolunteerToJson(_$_Volunteer instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_VolunteerToJson(_$_Volunteer instance) =>
       'emailAddress': instance.emailAddress,
       'address': instance.address.toJson(),
       'fcmToken': instance.fcmToken,
+      'isAvailable': instance.isAvailable,
     };
